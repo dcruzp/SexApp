@@ -8,8 +8,40 @@ Si se tiene un conjunto prefijado de posturas sexuales que se quieren usar en un
 
 Los objetivos de este trabajo son varios:
 
-1. Se desea tener una aplicacion en la que el usuario pueda entrar determinados datos de placer y agotamiento que proporciona cada postura, seleccionar qué criterio se quiere maximizar o minimizar y qué restricciones tener en cuenta, y obtener los resultados del modelo. Aquí se deberían graficar las curvas de placer y agotamiento para los datos entrados.
-
+1. Se desea tener una aplicación en la que el usuario pueda entrar determinados datos de placer y agotamiento que proporciona cada postura, seleccionar qué criterio se quiere maximizar o minimizar y qué restricciones tener en cuenta, y obtener los resultados del modelo. Aquí se deberían graficar las curvas de placer y agotamiento para los datos entrados.
 2. Se desean construir en interpretar los problemas duales de los planteados en el trabajo del año 2016, para poder brindarle al usuario información sobre las variables duales en el óptimo.
-
 3. Extender el trabajo. Aquí se asume que las posturas y el orden están fijas. Se desea construir (y resolver) un modelo en el que el orden de las posiciones sea parte de lo que hay que decidir.
+
+
+
+#### Datos
+
+#### Restricciones comunes
+
+1. Después de cada postura, la energía de cada participante disminuye de manera proporcional al tiempo que se permanezca en ella: 
+   $$
+   A_{ij} = A_{(i-1)j} - C_{ij} X_i  \hspace{1cm} \forall i \in N \hspace{1cm} \forall j \in J
+   $$
+
+2. Después de cada postura el placer de cada participante aumenta de manera proporcional al tiempo que permanezca en ella: 
+   $$
+   P_{ij} = P_{(i-1)j} + Pa_{ij} X_i  \hspace{1cm} \forall i \in N \hspace{1cm} \forall j \in J
+   $$
+
+3. En todo momento la energía es mayor o igual que cero: 
+   $$
+   A{ij} \geq 0  \hspace{1cm} \forall i \in N \hspace{1cm} \forall j \in J
+   $$
+
+4. El placer  después del acto sexual es mayor o igual que al placer necesario para alcanzar al orgasmo. 
+   $$
+   P_{nj}  \geq \hat{P}_{j}  \hspace{1cm} \forall j \in J   
+   $$
+   
+
+### Maximizar la duración del acto Sexual 
+
+Este problema se centra en encontrar que tiempo se debe estar en cada posición para que el tiempo del acto sexual sea el mayor posible. Se utiliza $x_i$ que indica el tiempo que se permanecerá en cada postura y se resuelva el problema  que se presenta a continuación , sujeta a las restricciones que se 1,2,3,4.
+$$
+max \sum_{i=1}^{n} x_i
+$$
