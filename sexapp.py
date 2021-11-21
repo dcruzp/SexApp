@@ -1,13 +1,9 @@
-from datetime import time
-from operator import le
-from pprint import pprint
 from scipy.optimize import linprog 
 import numpy as np
 import pandas as pd
-from scipy.sparse.construct import random
 import streamlit as st
 import sqlite3
-import random as rn
+
 
 
 # persona = ["Pedro" , "Alicia"]
