@@ -1,32 +1,35 @@
 from datetime import time
+from operator import le
 from pprint import pprint
-
-# from scipy.optimize import linprog 
+from scipy.optimize import linprog 
 import numpy as np
 import pandas as pd
+from scipy.sparse.construct import random
 import streamlit as st
 import sqlite3
-
-persona = ["Pedro" , "Alicia"]
-posturas = ["P1", "P2", "P3"]
-
-E0j = np.array([200, 150])  # energia inicial del participante j
-Pp0j = np.array([5, 10])    # placer inicial del participante j 
-Cij = np.array([[2,2,4],[3,1,3]]) 
-Paij = np.array([[5,1,2],[3,8,5]])
-Pj = np.array([150 , 130]) 
-
-c = np.ones(3)
-A_ub = np.concatenate((Cij, -1* Paij))
-b_ub = np.concatenate((E0j,-1*Pj + Pp0j)) 
-bound = (0,None)
+import random as rn
 
 
+# persona = ["Pedro" , "Alicia"]
+# posturas = ["P1", "P2", "P3"]
 
-energia = pd.DataFrame(Cij,columns= posturas,)
-placer = pd.DataFrame(Paij, columns= posturas)
-energiaInicial = pd.DataFrame (E0j, index= persona)
-placerInicial = pd.DataFrame(Pp0j, index= persona)
+# E0j = np.array([200, 150])  # energia inicial del participante j
+# Pp0j = np.array([5, 10])    # placer inicial del participante j 
+# Cij = np.array([[2,2,4],[3,1,3]]) 
+# Paij = np.array([[5,1,2],[3,8,5]])
+# Pj = np.array([150 , 130]) 
+
+# c = np.ones(3)
+# A_ub = np.concatenate((Cij, -1* Paij))
+# b_ub = np.concatenate((E0j,-1*Pj + Pp0j)) 
+# bound = (0,None)
+
+
+
+# energia = pd.DataFrame(Cij,columns= posturas,)
+# placer = pd.DataFrame(Paij, columns= posturas)
+# energiaInicial = pd.DataFrame (E0j, index= persona)
+# placerInicial = pd.DataFrame(Pp0j, index= persona)
 
 
 st.set_page_config(page_title='Sex App')
@@ -69,31 +72,64 @@ def show_main_page():
   conn.close()
 
   optionsPositions = st.multiselect('Selecciona las posturas', postures , help="Esto es una ayuda")
+  # st.write('las posturas son', optionsPositions)
+  
+  cant_participantes = st.number_input('Entre la cantidad de participantes',min_value=2 , max_value=15, step=1)
+  participantes = [ 'P' + str(item+1) for item in range(int(cant_participantes))]
+  # st.write('los participantes son' , participantes)
 
-
-
+  
   st.subheader('Energia consumida por unidad de tiempo')
-  st.dataframe(energia)
+  ECUT = [[] for item in range (len(participantes))]
+  for i in range(len(participantes)):
+    with st.expander(participantes[i]):
+      for j in range(len(optionsPositions)):
+        ECUT[i].append(st.slider(optionsPositions[j],min_value=1 , max_value=40,key= 'ECUT' + str(i*len(optionsPositions) + j)))
+
+  st.dataframe(ECUT)
 
 
   st.subheader ('Placer generado por unidad de tiempo')
-  st.dataframe(placer)
+  PGUT = [[]for item in range(len(participantes))]
+  for i in range(len(participantes)):
+    with st.expander(participantes[i]):
+      for j in range(len(optionsPositions)):
+        PGUT[i].append(st.slider(optionsPositions[j], min_value=1, max_value=20 ,key= 'ECUT' + str(i*len(optionsPositions) + j)))
+  st.dataframe(PGUT)
 
 
   st.subheader('Energia inicial de los participantes')
-  st.bar_chart(energiaInicial,use_container_width=False)
+  EIP = []
+  with st.expander('Energia inicial de cada participante'):
+    for i in range (len(participantes)):
+      EIP.append(st.slider(participantes[i], min_value= 1 , max_value= 300 , key='EIP' + str(i)))
+  st.bar_chart(EIP,use_container_width=False)
 
-  st.subheader('Placer inicail de los particiapantes')
-  st.bar_chart(placerInicial,use_container_width=False)
+  st.subheader('Placer inicial de los particiapantes')
+  PIP = []
+  with st.expander('Placer inicial de los participantes'):
+    for i in range(len(participantes)):
+      PIP.append(st.slider(participantes[i], min_value=1, max_value=20 , key= 'PIP' + str(i)))
+  st.bar_chart(PIP,use_container_width=False)
 
+  st.subheader('Niveles de placer de cada participante para obtener el orgasmo')
+  NPPOO = [] 
+  with st.expander('Niveles de placer para obtener el orgasmo'): 
+    for i in range (len(participantes)):
+      NPPOO.append(st.slider(participantes[i], min_value=150 , max_value=300, key= 'NPPOO'+ str(i)))
+  st.bar_chart(NPPOO,use_container_width=False)
 
+  c = np.ones(len(optionsPositions))
+  
+  A_ub = np.concatenate((ECUT, -1* np.array(PGUT)))
+  b_ub = np.concatenate((EIP,-1* np.array(NPPOO) +PIP))
 
-  # result= linprog(c = c , A_ub= A_ub, b_ub = b_ub , bounds= bound, method='simplex')
-  # st.subheader('Tiempo dedicado a cada postura')
+  result= linprog(c = c , A_ub= A_ub, b_ub = b_ub , bounds= (0,None), method='simplex')
+  st.subheader('Tiempo dedicado a cada postura')
+  print(result)
+  timeresult = pd.DataFrame(result.x , index=optionsPositions)
 
-  # timeresult = pd.DataFrame(result.x,index= posturas)
-
-  # st.line_chart(timeresult)
+  st.line_chart(timeresult)
 
 
 
