@@ -1,8 +1,7 @@
 from datetime import time
-from os import popen
 from pprint import pprint
-from urllib.parse import quote
-from scipy.optimize import linprog 
+
+# from scipy.optimize import linprog 
 import numpy as np
 import pandas as pd
 import streamlit as st
@@ -56,8 +55,7 @@ def show_postures():
       st.write(descriptions[i])
       st.image(sources[i])
 
-# esto es de prueba 
-#obteniendo posturas de la base de datos ----------------------------------------------
+
 
 def show_main_page(): 
 
@@ -90,17 +88,17 @@ def show_main_page():
 
 
 
-  result= linprog(c = c , A_ub= A_ub, b_ub = b_ub , bounds= bound, method='simplex')
-  st.subheader('Tiempo dedicado a cada postura')
+  # result= linprog(c = c , A_ub= A_ub, b_ub = b_ub , bounds= bound, method='simplex')
+  # st.subheader('Tiempo dedicado a cada postura')
 
-  timeresult = pd.DataFrame(result.x,index= posturas)
+  # timeresult = pd.DataFrame(result.x,index= posturas)
 
-  st.line_chart(timeresult)
+  # st.line_chart(timeresult)
 
 
 
-  title = st.text_input('Movie title ' , 'Life of Brian')
-  st.write('The current movie title is', title) 
+  # title = st.text_input('Movie title ' , 'Life of Brian')
+  # st.write('The current movie title is', title) 
 
 # values = st.slider(
 #   'Select a range of values', 
