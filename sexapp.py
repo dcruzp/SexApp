@@ -5,29 +5,6 @@ import streamlit as st
 import sqlite3
 
 
-
-# persona = ["Pedro" , "Alicia"]
-# posturas = ["P1", "P2", "P3"]
-
-# E0j = np.array([200, 150])  # energia inicial del participante j
-# Pp0j = np.array([5, 10])    # placer inicial del participante j 
-# Cij = np.array([[2,2,4],[3,1,3]]) 
-# Paij = np.array([[5,1,2],[3,8,5]])
-# Pj = np.array([150 , 130]) 
-
-# c = np.ones(3)
-# A_ub = np.concatenate((Cij, -1* Paij))
-# b_ub = np.concatenate((E0j,-1*Pj + Pp0j)) 
-# bound = (0,None)
-
-
-
-# energia = pd.DataFrame(Cij,columns= posturas,)
-# placer = pd.DataFrame(Paij, columns= posturas)
-# energiaInicial = pd.DataFrame (E0j, index= persona)
-# placerInicial = pd.DataFrame(Pp0j, index= persona)
-
-
 st.set_page_config(page_title='Sex App')
 st.title('Sex App')
 st.sidebar.header("Sex App")
