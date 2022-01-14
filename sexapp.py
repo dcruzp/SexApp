@@ -5,6 +5,16 @@ import streamlit as st
 import sqlite3
 
 
+#ECUT : Econsumida por unidad de tiempo [][]
+#PGUT : Placer generado por unidad de Tiempo [][]
+#EIP : Energía inicial del participante []
+#PIP : Placer inicial de los participantes  []
+#NPPOO : Placer necesario para alcanzar el orgasmo []
+
+
+
+
+
 st.set_page_config(page_title='Sex App')
 st.title('Sex App')
 st.sidebar.header("Sex App")
