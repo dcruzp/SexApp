@@ -35,7 +35,7 @@ def Optimizing(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Positions):
     for person in range (len(Persons)):
         
         #Por cada tiempoXpostura x cansancioXpostura sumalos y revisa que sean menores que una variable h menos la enrgia inicial de la persona
-        problem += pl.lpSum(TimepositionVars[position]*ECUT[person][position] for position in range(len(Positions))) <= h - EIP[person], "cansancio de : " + str(Persons[person])
+        problem += pl.lpSum(TimepositionVars[position]*ECUT[person][position] for position in range(len(Positions))) <= - h + EIP[person], "cansancio de : " + str(Persons[person])
         #Por cada tiempoXpostura x placerXpostura sumalos y revisa que sean mayores que el placer necesario para el orgasmo
         problem += pl.lpSum(TimepositionVars[position]*PGUT[person][position] for position in range(len(Positions))) >= NPPOO[person] - PIP[person], "placer máximo de : "+ str(Persons[person]) 
         #por cada tiempoXpostura x cansancioXpostura sumalos y revisa que sean menores que la energia inicial de la persona

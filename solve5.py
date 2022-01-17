@@ -48,13 +48,13 @@ def Optimizing(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Positions,hECUT,hPGUT,hEIP,hNPOO)
     #participante marginado
     
     #por cada tiempoXpostura x placerXpostura sumalos y revisa que sean menores que el placer para el orgasmo menos h
-    problem+= pl.lpSum(TimepositionVars[position]*hPGUT[position] for position in range(len(Positions))) < hNPOO-h ,"placer máximo de : marginado" 
+    problem+= pl.lpSum(TimepositionVars[position]*hPGUT[position] for position in range(len(Positions))) <= hNPOO-1-h ,"placer máximo de : marginado" 
     
     #h es menor que el placer necesario para el orgasmo (quizas es innecesaria)
-    problem+= hNPOO>h    
+    problem+= hNPOO-1>=h    
     
     #por cada tiempoXpostura x placerXpostura sumalos y revisa que sean menores qu la energia inicial
-    problem+= pl.lpSum(TimepositionVars[position]*hECUT[position] for position in range(len(Positions))) <=hEIP ,"cansancio de : marinado"
+    problem+= pl.lpSum(TimepositionVars[position]*hECUT[position] for position in range(len(Positions))) <=hEIP ,"cansancio de : marginado"
     
     print(problem)
     problem.solve()

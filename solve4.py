@@ -7,11 +7,11 @@ def Solve4thProblem():
    # PIP = sap.PIP
    # NPPOO = sap.NPPOO
     
-    ECUT = [[2,3],[1,4]]
-    PGUT= [[4,5],[5,6]] 
-    EIP = [300,300]  
-    PIP = [5, 5] 
-    NPPOO = [500, 500]
+    ECUT = [[3,4],[1,4]]
+    PGUT= [[78,200],[5,6]] 
+    EIP = [250,300]  
+    PIP = [100, 5] 
+    NPPOO = [400, 500]
     Postures= ["postura1", "postura2"]
     Persons= ["persons1", "persons2"]
     Optimizing(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Postures)
@@ -21,7 +21,7 @@ def Optimizing(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Positions):
     problem = pl.LpProblem("Minimizar la energia H",pl.LpMinimize) 
     
     h = pl.LpVariable("H",lowBound=0,cat=pl.LpInteger)
-    problem+= h
+
     
     
     TimepositionVars=[]
@@ -32,6 +32,7 @@ def Optimizing(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Positions):
     for person in range(len(Persons)):
         EnergyInitialVars.append(pl.LpVariable(Persons[person],lowBound=1,cat=pl.LpInteger))
     
+    problem+= pl.LpAffineExpression([(EnergyInitialVars[i],1)  for i in range(len(EnergyInitialVars))])
     
     for person in range (len(Persons)):
         
