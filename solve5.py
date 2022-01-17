@@ -1,25 +1,43 @@
 import pulp as pl
 
-def Solve4thProblem():
-   # ECUT = sap.ECUT
-   # PGUT= sap.PGUT 
-   # EIP = sap.EIP
-   # PIP = sap.PIP
-   # NPPOO = sap.NPPOO
+
+def Solve4thProblem(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Postures,SpecificPersonIndex):
+    ECUT = ECUT
+    PGUT= PGUT 
+    EIP = EIP
+    PIP = PIP
+    NPPOO = NPPOO
     
     
-    hECUT=[2,3]
-    hPGUT=[4,5]
-    hEIP=300
-    hNPOO=500
+    hECUT= ECUT[SpecificPersonIndex]
+    ECUT.Pop(SpecificPersonIndex)
     
-    ECUT = [[2,3],[1,4]]
-    PGUT= [[4,5],[5,6]] 
-    EIP = [300,300]  
-    PIP = [5, 5] 
-    NPPOO = [500, 500]
-    Postures= ["postura1", "postura2"]
-    Persons= ["persons1", "persons2"]
+    PersonName = Persons[SpecificPersonIndex]
+    Persons.Pop(SpecificPersonIndex)
+
+    hPGUT = PGUT[SpecificPersonIndex]
+    PGUT.Pop(SpecificPersonIndex)
+    
+    hEIP = EIP[SpecificPersonIndex]
+    EIP.Pop(SpecificPersonIndex)
+    
+    hPIP = PIP[SpecificPersonIndex] 
+    PIP.Pop(SpecificPersonIndex) 
+    
+    hNPOO = NPPOO[SpecificPersonIndex]
+    NPPOO.Pop(SpecificPersonIndex)
+    
+    # hPGUT=[4,5]
+    # hEIP=300
+    # hNPOO=500
+    
+    # ECUT = [[2,3],[1,4]]
+    # PGUT= [[4,5],[5,6]] 
+    # EIP = [300,300]  
+    # PIP = [5, 5] 
+    # NPPOO = [500, 500]
+    # Postures= ["postura1", "postura2"]
+    # Persons= ["persons1", "persons2"]
     Optimizing(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Postures,hECUT,hPGUT,hEIP,hNPOO)
     
 def Optimizing(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Positions,hECUT,hPGUT,hEIP,hNPOO):
@@ -62,7 +80,7 @@ def Optimizing(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Positions,hECUT,hPGUT,hEIP,hNPOO)
     
     
     
-Solve4thProblem()
+Solve5thProblem()
 
 print("")
     

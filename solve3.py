@@ -1,19 +1,20 @@
 import pulp as pl
 
-def Solve3erProblem():
-   # ECUT = sap.ECUT
-   # PGUT= sap.PGUT 
-   # EIP = sap.EIP
-   # PIP = sap.PIP
-   # NPPOO = sap.NPPOO
+
+def Solve3rdProblem(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Postures):
+    ECUT = ECUT
+    PGUT= PGUT 
+    EIP = EIP
+    PIP = PIP
+    NPPOO = NPPOO
     
-    ECUT = [[2,3],[1,4]]
-    PGUT= [[4,5],[5,6]] 
-    EIP = [300,300]  
-    PIP = [5, 5] 
-    NPPOO = [500, 500]
-    Postures= ["postura1", "postura2"]
-    Persons= ["persons1", "persons2"]
+    # ECUT = [[2,3],[1,4]]
+    # PGUT= [[4,5],[5,6]] 
+    # EIP = [300,300]  
+    # PIP = [5, 5] 
+    # NPPOO = [500, 500]
+    # Postures= ["postura1", "postura2"]
+    # Persons= ["persons1", "persons2"]
     Optimizing(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Postures)
     
     
@@ -49,7 +50,7 @@ def Optimizing(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Positions):
     
     
     
-Solve3erProblem()
+Solve3rdProblem()
 
 print("")
     
