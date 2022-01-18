@@ -5,7 +5,7 @@ import streamlit as st
 import sqlite3
 
 
-#ECUT : Econsumida por unidad de tiempo [][]
+#ECUT : E consumida por unidad de tiempo [][]
 #PGUT : Placer generado por unidad de Tiempo [][]
 #EIP : Energía inicial del participante []
 #PIP : Placer inicial de los participantes  []
