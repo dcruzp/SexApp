@@ -6,11 +6,11 @@ import pulp as pl
 
 
 def Solve2ndProblem(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Postures):
-    ECUT = ECUT
-    PGUT= PGUT 
-    EIP = EIP
-    PIP = PIP
-    NPPOO = NPPOO
+    nECUT = ECUT
+    nPGUT= PGUT 
+    nEIP = EIP
+    nPIP = PIP
+    nNPPOO = NPPOO
 
     # ECUT = [[2,3],[1,4]]
     # PGUT= [[4,5],[5,6]] 
@@ -19,7 +19,7 @@ def Solve2ndProblem(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Postures):
     # NPPOO = [1000, 1000]
     # Postures= ["postura1", "postura2"]
     # Persons= ["persons1", "persons2"]
-    Optimizing(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Postures)
+    return Optimizing(nECUT,nPGUT,nEIP,nPIP,nNPPOO,Persons,Postures)
 
     
 
@@ -47,13 +47,13 @@ def Optimizing(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Positions):
         #Por cada tiempoXpostura x cansancioXpostura sumalos y revisa que sean menores que la energia inicial de la persona
         problem += pl.lpSum( TimepositionVars[position]*ECUT[person][position] for position in range(len(Positions))) <= EIP[person], "Energía de : "+ str(Persons[person])
     
-    
-    print(problem)
     problem.solve()
     
+    return problem
     
     
+    
 
 
 
-Solve2ndProblem()
+# Solve2ndProblem()
