@@ -1,7 +1,7 @@
 import pulp as pl
 
 
-def Solve4thProblem(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Postures,SpecificPersonIndex):
+def Solve5thProblem(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Postures,SpecificPersonIndex):
     ECUT = ECUT
     PGUT= PGUT 
     EIP = EIP

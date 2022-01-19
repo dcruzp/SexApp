@@ -12,7 +12,6 @@ Persons= ["persons1", "persons2"]
 
 
 def Solve2ndProblem(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Postures):
-<<<<<<< Updated upstream
     ECUT = ECUT
     PGUT= PGUT 
     EIP = EIP
@@ -27,16 +26,6 @@ def Solve2ndProblem(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Postures):
     # Postures= ["postura1", "postura2"]
     # Persons= ["persons1", "persons2"]
     Optimizing(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Postures)
-=======
-    # nECUT = ECUT
-    # nPGUT= PGUT 
-    # nEIP = EIP
-    # nPIP = PIP
-    # nNPPOO = NPPOO
-
-
-    return Optimizing(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Postures)
->>>>>>> Stashed changes
 
     
 
@@ -64,11 +53,6 @@ def Optimizing(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Positions):
         #Por cada tiempoXpostura x cansancioXpostura sumalos y revisa que sean menores que la energia inicial de la persona
         problem += pl.lpSum( TimepositionVars[position]*ECUT[person][position] for position in range(len(Positions))) <= EIP[person], "Energía de : "+ str(Persons[person])
     
-<<<<<<< Updated upstream
-    
-    print(problem)
-    problem.solve()
-=======
     print(problem)
     problem.solve()
         
@@ -85,7 +69,6 @@ def Optimizing(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Positions):
 
         
     
->>>>>>> Stashed changes
     
     return problem
 

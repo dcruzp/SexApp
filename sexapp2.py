@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 import streamlit as st
 import sqlite3
-
+import os
 from sexapp import *
 import solve2
 
@@ -16,7 +16,7 @@ import solve2
 
 
 def show_second_page(): 
-    file_path = os.path.realpath(__file__)
+  file_path = os.path.realpath(__file__)
   dblocation = "db\\sexapp.db" 
   conn = sqlite3.connect(dblocation)
   cursor = conn.cursor()
