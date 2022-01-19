@@ -1,3 +1,4 @@
+from pygame import image
 from scipy.optimize import linprog 
 import numpy as np
 import pandas as pd
@@ -7,7 +8,12 @@ import random
 import json
 
 
+# Globals Varaibles
 dblocation = None
+MAX_LENGTH_DESCIPTION = 400
+MIN_LENGTH_DESCIPTION = 10
+
+
 
 def loadingconfigfile():
   global dblocation
@@ -38,9 +44,9 @@ st.sidebar.header("Sex App")
 
 dblocation = "db\\sexapp.db"
 
-choice = st.sidebar.selectbox('Select view' ,['Modelo 1', 'Modelo 2' , 'Modelo 3' , 'Modelo 4' , 'Modelo 5' , 'Mostrar Posturas'])
+choice = st.sidebar.selectbox('Select view' ,['Modelo 1', 'Modelo 2' , 'Modelo 3' , 'Modelo 4' , 'Modelo 5' , 'Mostrar Posturas', 'Adicionar una postura'])
 
-choicemodel1 = st.sidebar
+choicemodel1 = st.sidebar.selectbox('Select view', ['sdfsdf', 'afsdf'])
 
 
 def get_selected_postures ():
@@ -152,22 +158,74 @@ def solve_model1(optionsPositions , ECUT , PGUT, EIP, NPPOO, PIP):
 def get_postures_info():
   conn = sqlite3.connect(dblocation)
   cursor = conn.cursor() 
-  query = cursor.execute('SELECT name,source,description FROM posturas')
+  query = cursor.execute('SELECT name,source,description , image FROM posturas')
   rows = query.fetchall()
   names = list(map(lambda x : x[0], rows))
   sources = list(map(lambda x : x[1], rows))
   descriptions = list(map(lambda x : x[2], rows))
-  return (names, sources ,descriptions)
+  images = list(map(lambda x : x[3], rows))
+  return (names, sources ,descriptions,images)
 
 def show_all_postures():
-  names, sources , descriptions =  get_postures_info()
+  names, sources , descriptions ,images =  get_postures_info()
   for i in range (len(names)):
     with st.expander(names[i]):
       st.write(descriptions[i])
-      st.image(sources[i])
+      if sources[i] is not None:
+        st.image(sources[i])
+      elif images[i] is not None:
+        st.image(images[i])
+
+def addposture():
+  form = st.form(key= 'form2')
+
+  form.write('Entre los datos para insertar la nueva postura a la aplicacion')
+
+  warning_name_posture = form.empty()
+  posture_name = form.text_input('Entrar el nombre de la postura', 'Postura')
+  
+  warning_desciption_posture = form.empty()
+  posture_description = form.text_input('Escriba una descripcion para la postura', "Descripcion para la postura ")
+  
+  warning_image_posture = form.empty()
+  uploaded_file = form.file_uploader('Escoge una figura para la postura')
+
+  submitted = form.form_submit_button("Aceptar")
+
+  if submitted:
+    if (len(posture_name) > 50) or posture_name == '':
+      warning_name_posture.warning('el nombre de la postura no puede ser vacio ni exceder los 50 caracteres')
+    elif (
+      (len(posture_description) < MIN_LENGTH_DESCIPTION) 
+        or 
+      (len(posture_description) > MAX_LENGTH_DESCIPTION) 
+      ):
+      warning_desciption_posture.warning('la descripcion de la postura debe tener una longitud entre 100 y 400')
+    elif uploaded_file is None:
+      warning_image_posture.warning('no se ha seleccionado ninguna imagen para  la postura')
+    else:
+      try: 
+        byte_data = uploaded_file.read()
+
+        buff = sqlite3.Binary(byte_data)
+
+
+        conn = sqlite3.connect(dblocation)
+        c = conn.cursor()
+        
+        c.execute(f'INSERT INTO posturas (name, description , image)  VALUES ("{posture_name}" , "{posture_description}", ?);', (buff,))
+        conn.commit()
+        c.close()
+        conn.close()
+
+        form.success('La postura ha sido annadida exitosamente')
+      except Exception as err:
+        warning_image_posture.warning('Hubo un error al insertar en la base de datos %s' % err)
 
 
 if choice == 'Modelo 1':
   show_modelo_1()
 elif choice == 'Mostrar Posturas':
   show_all_postures()
+elif choice == 'Adicionar una postura':
+  addposture()
