@@ -16,11 +16,11 @@ def Solve4thProblem(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Postures):
     # NPPOO = [400, 500]
     # Postures= ["postura1", "postura2"]
     # Persons= ["persons1", "persons2"]
-    Optimizing(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Postures)
+    return Optimizing(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Postures)
     
 def Optimizing(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Positions):
         
-    problem = pl.LpProblem("Minimizar la energia H",pl.LpMinimize) 
+    problem = pl.LpProblem("Minimizar la energia inicial H",pl.LpMinimize) 
     
     h = pl.LpVariable("H",lowBound=1,cat=pl.LpInteger)
 
@@ -53,12 +53,7 @@ def Optimizing(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Positions):
     
     print(problem)
     problem.solve()
+    return problem
     print("a")
     
     
-    
-Solve4thProblem()
-
-print("")
-    
-   
