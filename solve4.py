@@ -1,10 +1,9 @@
 import pulp as pl
 
 
-def Solve4thProblem(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Postures):
+def Solve4thProblem(ECUT,PGUT,PIP,NPPOO,Persons,Postures):
     ECUT = ECUT
     PGUT= PGUT 
-    EIP = EIP
     PIP = PIP
     NPPOO = NPPOO
     
@@ -16,9 +15,9 @@ def Solve4thProblem(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Postures):
     # NPPOO = [400, 500]
     # Postures= ["postura1", "postura2"]
     # Persons= ["persons1", "persons2"]
-    return Optimizing(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Postures)
+    return Optimizing(ECUT,PGUT,PIP,NPPOO,Persons,Postures)
     
-def Optimizing(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Positions):
+def Optimizing(ECUT,PGUT,PIP,NPPOO,Persons,Positions):
         
     problem = pl.LpProblem("Minimizar la energia inicial H",pl.LpMinimize) 
     
@@ -46,10 +45,7 @@ def Optimizing(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Positions):
         
         #Por cada tiempoXpostura x placerXpostura sumalos y revisa que sean mayores que el placer necesario para el orgasmo
         problem += pl.lpSum(TimepositionVars[position]*PGUT[person][position] for position in range(len(Positions))) >= NPPOO[person] - PIP[person], "placer máximo de : "+ str(Persons[person]) 
-        
-        
-        
-        
+
     
     print(problem)
     problem.solve()

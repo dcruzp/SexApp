@@ -6,6 +6,7 @@ from addposture import addposture
 from addparticipants import addparticipant
 from viewmodel1 import show_modelo_1
 from viewmodel2 import show_modelo_2
+from viewmodel4 import show_modelo_4
 
 #ECUT : E consumida por unidad de tiempo [][]
 #PGUT : Placer generado por unidad de Tiempo [][]
@@ -54,8 +55,6 @@ dblocation = "db\\sexapp.db"
 
 choice = st.sidebar.selectbox('Select view' ,['Modelo 1', 'Modelo 2' , 'Modelo 3' , 'Modelo 4' , 'Modelo 5' , 'Mostrar Posturas', 'Adicionar una postura'])
 
-choicemodel1 = st.sidebar.selectbox('Select view', ['sdfsdf', 'afsdf'])
-
 
 @st.cache
 def get_postures_info():
@@ -88,3 +87,5 @@ elif choice == 'Adicionar una postura':
   addposture()
 elif choice == 'Modelo 2':
   show_modelo_2()
+elif choice == 'Modelo 4':
+  show_modelo_4()
