@@ -4,7 +4,7 @@ from addparticipants import addparticipant
 import numpy as np
 import pandas as pd
 from scipy.optimize import linprog 
-import solvepulp
+import solve5
 
 dblocation = "db\\sexapp.db"
 
@@ -23,20 +23,12 @@ def get_selected_postures ():
 
 
 
-def show_modelo_1():
+def show_modelo_5():
 
-  st.title('Maximizar la duración del  acto sexual')
+  st.title('Maximizar el placer del que menor placer alcance al finalizar el acto sexual.')
 
   st.write("""
-  Este problema se centra en encontrar que tiempo se debe estar en cada
-  postura  para que el tiempo del acto sexual sea el mayor posible. Se 
-  debe proporcionar informacion de las posturas que se van a hacer durante 
-  el acto sexual. Ademas se tiene que proporcionar nformacion de los participantes 
-  saber la energia inicial que estos participantes tienen , y el placer inicial de estos 
-  como nombre para poder identificarlos en la aplicación. Tambien es necesario 
-  junto con el placer que estos necesitan para obtener el orgasmo. Ademas la aplcacion tiene 
-  que saber que placer genera y la energia que consume a cada participante cada una de las posturas
-  que se desea realizar en el acto sexual. 
+    En este modelo se intenta maximizar el placer individual de kkKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK 
   """)
   
   optionsPositions = get_selected_postures()
@@ -50,17 +42,24 @@ def show_modelo_1():
   for i in range(len(participants)):
     with st.expander(participants[i]):
       for j in range(len(optionsPositions)):
-        ECUT[i].append(st.slider(optionsPositions[j],min_value=1 , max_value=40,key= 'ECUT' + str(i*len(optionsPositions) + j)))
+        ECUT[i].append(st.slider(optionsPositions[j],min_value=1 , max_value=1000,key= 'ECUT' + str(i*len(optionsPositions) + j)))
 
   # st.dataframe(ECUT)
 
+    choice= st.sidebar.selectbox('Select Person', participants)
+    personIndex = 0
+    
+    for i in range(len(participants)):
+        if choice == participants[i]:
+            personIndex = i
+        
 
   st.subheader ('Placer generado por unidad de tiempo')
   PGUT = [[]for item in range(len(participants))]
   for i in range(len(participants)):
     with st.expander(participants[i]):
       for j in range(len(optionsPositions)):
-        PGUT[i].append(st.slider(optionsPositions[j], min_value=1, max_value=20 ,key= 'ECUT' + str(i*len(optionsPositions) + j)))
+        PGUT[i].append(st.slider(optionsPositions[j], min_value=1, max_value=100 ,key= 'ECUT' + str(i*len(optionsPositions) + j)))
   
   # st.dataframe(PGUT)
 
@@ -69,7 +68,7 @@ def show_modelo_1():
   EIP = []
   with st.expander('Energía inicial de cada participante'):
     for i in range (len(participants)):
-      EIP.append(st.slider(participants[i], min_value= 1 , max_value= 300 , key='EIP' + str(i)))
+      EIP.append(st.slider(participants[i], min_value= 1 , max_value= 100 , key='EIP' + str(i)))
   
   #st.bar_chart(EIP,use_container_width=False)
 
@@ -77,7 +76,7 @@ def show_modelo_1():
   PIP = []
   with st.expander('Placer inicial de los participantes'):
     for i in range(len(participants)):
-      PIP.append(st.slider(participants[i], min_value=1, max_value=20 , key= 'PIP' + str(i)))
+      PIP.append(st.slider(participants[i], min_value=1, max_value=100 , key= 'PIP' + str(i)))
   
   # st.bar_chart(PIP,use_container_width=False)
 
@@ -91,9 +90,13 @@ def show_modelo_1():
 
   st.empty()
   if st.button("Analyce"):
-    result = solvepulp.Solve1stProblem(ECUT,PGUT,EIP,PIP,NPPOO,participants,optionsPositions)
+    result = solve5.Solve5thProblem(ECUT,PGUT,EIP,PIP,NPPOO,participants,optionsPositions,personIndex)
+    
     sol= []
     for name in result.variables():
+        if name.name == "H":
+            continue
+        
         sol.append(name.varValue)
     
     if result.status == 1:
@@ -113,13 +116,4 @@ def show_modelo_1():
     
     elif result.status == -3:
       st.title('El problema es indefinido')
-
-# def solve_model1(optionsPositions , ECUT , PGUT, EIP, NPPOO, PIP):
-#   c = np.ones(len(optionsPositions))
-  
-#   A_ub = np.concatenate((ECUT, -1* np.array(PGUT)))
-#   b_ub = np.concatenate((EIP,-1* np.array(NPPOO) +PIP))
-
-#   result= linprog(c = c , A_ub= A_ub, b_ub = b_ub , bounds= (0,None), method='simplex')
-#   st.subheader('Tiempo dedicado a cada postura')
-#   return result
+    

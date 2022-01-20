@@ -23,8 +23,10 @@ def Optimizing(ECUT,PGUT,PIP,NPPOO,Persons,Positions):
     
     h = pl.LpVariable("H",lowBound=1,cat=pl.LpInteger)
     
-    TimepositionVars=[]
+   
     EnergyInitialVars=[]
+   
+    TimepositionVars = []
     for position in range(len(Positions)):
         TimepositionVars.append(pl.LpVariable(Positions[position],lowBound=1,cat=pl.LpInteger))
         
@@ -43,7 +45,10 @@ def Optimizing(ECUT,PGUT,PIP,NPPOO,Persons,Positions):
         
         #Por cada tiempoXpostura x placerXpostura sumalos y revisa que sean mayores que el placer necesario para el orgasmo
         problem += pl.lpSum(TimepositionVars[position]*PGUT[person][position] for position in range(len(Positions))) >= NPPOO[person] - PIP[person], "placer máximo de : "+ str(Persons[person]) 
-
+        
+        
+        
+        
     
     print(problem)
     problem.solve()

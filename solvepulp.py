@@ -24,7 +24,7 @@ personas = ["Pedro" , "Amanda"]
 def Solve1stProblem(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Positions):
   problem = pl.LpProblem("Maximizar el tiempo",pl.LpMaximize) 
   
-  x_name = ['time1', 'time2']
+  x_name = Positions
   x = [pl.LpVariable(x_name[i] , lowBound=1) for i in range(len(x_name))]
   c = pl.LpAffineExpression([(x[i],1)  for i in range(len(x))])
   
