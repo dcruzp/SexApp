@@ -1,12 +1,12 @@
 import pulp as pl
 #import sexapp as sap
-ECUT = [[2,3],[1,4]]
-PGUT= [[3,500],[5,6]] 
-EIP = [300,300]  
-PIP = [1000, 5] 
-NPPOO = [1000, 1000]
-Postures= ["postura1", "postura2"]
-Persons= ["persons1", "persons2"]
+# ECUT = [[2,3],[1,4]]
+# PGUT= [[3,500],[5,6]] 
+# EIP = [300,300]  
+# PIP = [1000, 5] 
+# NPPOO = [1000, 1000]
+# Postures= ["postura1", "postura2"]
+# Persons= ["persons1", "persons2"]
 
 
 
@@ -25,7 +25,7 @@ def Solve2ndProblem(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Postures):
     # NPPOO = [1000, 1000]
     # Postures= ["postura1", "postura2"]
     # Persons= ["persons1", "persons2"]
-    Optimizing(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Postures)
+    return Optimizing(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Postures)
 
     
 
@@ -74,10 +74,10 @@ def Optimizing(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Positions):
 
 
 
-Solve2ndProblem(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Postures)
+# Solve2ndProblem(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Postures)
     
     
 
 
 
-Solve2ndProblem()
+# Solve2ndProblem()

@@ -2,30 +2,30 @@ import pulp as pl
 
 
 def Solve5thProblem(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Postures,SpecificPersonIndex):
-    ECUT = ECUT
-    PGUT= PGUT 
-    EIP = EIP
-    PIP = PIP
-    NPPOO = NPPOO
+    # ECUT = ECUT
+    # PGUT= PGUT 
+    # EIP = EIP
+    # PIP = PIP
+    # NPPOO = NPPOO
     
     
-    hECUT= ECUT[SpecificPersonIndex]
-    ECUT.Pop(SpecificPersonIndex)
+    # hECUT= ECUT[SpecificPersonIndex]
+    # # ECUT.Pop(SpecificPersonIndex)
     
-    PersonName = Persons[SpecificPersonIndex]
-    Persons.Pop(SpecificPersonIndex)
+    # PersonName = Persons[SpecificPersonIndex]
+    # # Persons.Pop(SpecificPersonIndex)
 
-    hPGUT = PGUT[SpecificPersonIndex]
-    PGUT.Pop(SpecificPersonIndex)
+    # hPGUT = PGUT[SpecificPersonIndex]
+    # # PGUT.Pop(SpecificPersonIndex)
     
-    hEIP = EIP[SpecificPersonIndex]
-    EIP.Pop(SpecificPersonIndex)
+    # hEIP = EIP[SpecificPersonIndex]
+    # # EIP.Pop(SpecificPersonIndex)
     
-    hPIP = PIP[SpecificPersonIndex] 
-    PIP.Pop(SpecificPersonIndex) 
+    # hPIP = PIP[SpecificPersonIndex] 
+    # # PIP.Pop(SpecificPersonIndex) 
     
-    hNPOO = NPPOO[SpecificPersonIndex]
-    NPPOO.Pop(SpecificPersonIndex)
+    # hNPOO = NPPOO[SpecificPersonIndex]
+    # # NPPOO.Pop(SpecificPersonIndex)
     
     # hPGUT=[4,5]
     # hEIP=300
@@ -38,9 +38,9 @@ def Solve5thProblem(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Postures,SpecificPersonIndex
     # NPPOO = [500, 500]
     # Postures= ["postura1", "postura2"]
     # Persons= ["persons1", "persons2"]
-    Optimizing(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Postures,hECUT,hPGUT,hEIP,hNPOO)
+    return Optimizing(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Postures,SpecificPersonIndex)
     
-def Optimizing(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Positions,hECUT,hPGUT,hEIP,hNPOO):
+def Optimizing(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Positions, personIndex):
         
     problem = pl.LpProblem("Maximizar el placer H",pl.LpMaximize) 
     
@@ -60,28 +60,24 @@ def Optimizing(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Positions,hECUT,hPGUT,hEIP,hNPOO)
         #Por cada tiempoXpostura x cansancioXpostura sumalos y revisa que sean mayores que cero
         problem+= pl.lpSum(TimepositionVars[position]*ECUT[person][position] for position in range(len(Positions))) <= EIP[person], "cansancio de :"+ str(Persons[person])
         
-        #Por cada tiempoXpostura x placerXpostura sumalos y revisa que sean mayores que el placer necesario para el orgasmo
-        problem += pl.lpSum(TimepositionVars[position]*PGUT[person][position] for position in range(len(Positions))) >= NPPOO[person] - PIP[person], "placer máximo de : "+ str(Persons[person]) 
+        if person != personIndex:
+            #Por cada tiempoXpostura x placerXpostura sumalos y revisa que sean mayores que el placer necesario para el orgasmo
+            problem += pl.lpSum(TimepositionVars[position]*PGUT[person][position] for position in range(len(Positions))) >= NPPOO[person] - PIP[person], "placer máximo de : "+ str(Persons[person]) 
     
     #participante marginado
     
     #por cada tiempoXpostura x placerXpostura sumalos y revisa que sean menores que el placer para el orgasmo menos h
-    problem+= pl.lpSum(TimepositionVars[position]*hPGUT[position] for position in range(len(Positions))) <= hNPOO-1-h ,"placer máximo de : marginado" 
+    problem+= pl.lpSum(TimepositionVars[position]*PGUT[personIndex][position] for position in range(len(Positions))) <= NPPOO[personIndex]-1-h ,"placer máximo de : marginado" 
     
     #h es menor que el placer necesario para el orgasmo (quizas es innecesaria)
-    problem+= hNPOO-1>=h    
+    problem+= NPPOO[personIndex]-1>=h    
     
     #por cada tiempoXpostura x placerXpostura sumalos y revisa que sean menores qu la energia inicial
-    problem+= pl.lpSum(TimepositionVars[position]*hECUT[position] for position in range(len(Positions))) <=hEIP ,"cansancio de : marginado"
+    # problem+= pl.lpSum(TimepositionVars[position]*hECUT[position] for position in range(len(Positions))) <=hEIP ,"cansancio de : marginado"
     
     print(problem)
     problem.solve()
+    return problem
     print("a")
     
     
-    
-Solve5thProblem()
-
-print("")
-    
-   

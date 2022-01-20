@@ -2,11 +2,11 @@ import pulp as pl
 
 
 def Solve3rdProblem(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Postures):
-    ECUT = ECUT
-    PGUT= PGUT 
-    EIP = EIP
-    PIP = PIP
-    NPPOO = NPPOO
+    # ECUT = ECUT
+    # PGUT= PGUT 
+    # EIP = EIP
+    # PIP = PIP
+    # NPPOO = NPPOO
     
     # ECUT = [[2,3],[1,4]]
     # PGUT= [[4,5],[5,6]] 
@@ -15,13 +15,13 @@ def Solve3rdProblem(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Postures):
     # NPPOO = [500, 500]
     # Postures= ["postura1", "postura2"]
     # Persons= ["persons1", "persons2"]
-    Optimizing(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Postures)
+    return Optimizing(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Postures)
     
     
     
 def Optimizing(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Positions):
     
-    problem = pl.LpProblem("Maximizar el placer H",pl.LpMaximize) 
+    problem = pl.LpProblem("Maximizar la enrgía H",pl.LpMaximize) 
     
     h = pl.LpVariable("H",lowBound=0,cat=pl.LpInteger)
     problem+= h
@@ -46,13 +46,8 @@ def Optimizing(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Positions):
     
     print(problem)
     problem.solve()
+    return problem
     print("a")
-    
-    
-    
-Solve3rdProblem()
 
-print("")
-    
     
     
