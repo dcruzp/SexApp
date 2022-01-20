@@ -4,6 +4,7 @@ from addparticipants import addparticipant
 import numpy as np
 import pandas as pd
 from scipy.optimize import linprog 
+import solvepulp
 
 dblocation = "db\\sexapp.db"
 
@@ -90,18 +91,35 @@ def show_modelo_1():
 
   st.empty()
   if st.button("Analyce"):
-    result = solve_model1(optionsPositions,ECUT,PGUT,EIP,NPPOO,PIP)
-    timeresult = pd.DataFrame(result.x , index=optionsPositions)
-    container = st.container()
-    container.line_chart(timeresult)
-    container.area_chart(timeresult)
+    result = solvepulp.Solve1stProblem(ECUT,PGUT,EIP,PIP,NPPOO,participants,optionsPositions)
+    sol= []
+    for name in result.variables():
+        sol.append(name.varValue)
+    
+    if result.status == 1:
+      timeresult = pd.DataFrame(sol , index=optionsPositions)
+      container = st.container()
+      container.line_chart(timeresult)
+      container.area_chart(timeresult)
+      
+    elif result.status == 0:
+      st.title('No se resolvió el problema.')
+    
+    elif result.status == -1:
+      st.title('El problema es inviable.')
+    
+    elif result.status == -2:
+      st.title('El problema es ilimitado.')
+    
+    elif result.status == -3:
+      st.title('El problema es indefinido')
 
-def solve_model1(optionsPositions , ECUT , PGUT, EIP, NPPOO, PIP):
-  c = np.ones(len(optionsPositions))
+# def solve_model1(optionsPositions , ECUT , PGUT, EIP, NPPOO, PIP):
+#   c = np.ones(len(optionsPositions))
   
-  A_ub = np.concatenate((ECUT, -1* np.array(PGUT)))
-  b_ub = np.concatenate((EIP,-1* np.array(NPPOO) +PIP))
+#   A_ub = np.concatenate((ECUT, -1* np.array(PGUT)))
+#   b_ub = np.concatenate((EIP,-1* np.array(NPPOO) +PIP))
 
-  result= linprog(c = c , A_ub= A_ub, b_ub = b_ub , bounds= (0,None), method='simplex')
-  st.subheader('Tiempo dedicado a cada postura')
-  return result
+#   result= linprog(c = c , A_ub= A_ub, b_ub = b_ub , bounds= (0,None), method='simplex')
+#   st.subheader('Tiempo dedicado a cada postura')
+#   return result
