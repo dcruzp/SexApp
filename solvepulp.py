@@ -1,7 +1,7 @@
 import pulp as pl 
 
-posturas = ["postura1", "postura2"]
-personas = ["Pedro" , "Amanda"]
+# posturas = ["postura1", "postura2"]
+# personas = ["Pedro" , "Amanda"]
 
 
 # placer de personas contra posturas 
@@ -21,21 +21,21 @@ personas = ["Pedro" , "Amanda"]
   # # placer requerido para obtener el orgasmo 
   # placerRequerido = [150, 200]
   
-def Solve1stProblem(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Positions):
+def Solve1stProblem(ECUT,PGUT,EIP,PIP,NPPOO,personas,posturas):
   problem = pl.LpProblem("Maximizar el tiempo",pl.LpMaximize) 
   
-  x_name = Positions
+  x_name = posturas
   x = [pl.LpVariable(x_name[i] , lowBound=1) for i in range(len(x_name))]
   c = pl.LpAffineExpression([(x[i],1)  for i in range(len(x))])
   
   # 
   problem += pl.lpSum([1 * x[i] for i in range(len(x_name))])
   
-  for person in range (len(Persons)):
+  for person in range (len(personas)):
     problem += pl.lpSum(PGUT[person][i] * x[i] for i in range(len(posturas))) >= NPPOO[person] - PIP[person] , "placer para : " + str(personas[person])
   
   
-  for person in range(len(Persons)):
+  for person in range(len(personas)):
     problem += pl.lpSum(ECUT[person][i] * x[i] for i in range(len(posturas))) <= EIP[person] , " energia para la persona : " + str(personas[person]) 
   
   print(problem)
