@@ -11,7 +11,7 @@ import pulp as pl
 
 
 
-def Solve2ndProblem(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Postures):
+def Solve2ndProblem(ECUT,PGUT,EIP,NPPOO,PIP,Persons,Postures):
     # ECUT = ECUT
     # PGUT= PGUT 
     # EIP = EIP
