@@ -102,6 +102,14 @@ def show_modelo_1():
       container.line_chart(timeresult)
       container.area_chart(timeresult)
       
+      for person in participants:
+        
+        st.subheader('Curva de Placer por posición de '+person , key = person+'Placer')
+        pd.DataFrame(sol,columns=optionsPositions)
+        
+        
+      
+      
     elif result.status == 0:
       st.title('No se resolvió el problema.')
     
