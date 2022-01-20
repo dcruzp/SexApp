@@ -27,7 +27,7 @@ def Solve2ndProblem(ECUT,PGUT,EIP,NPPOO,PIP,Persons,Postures):
     # Persons= ["persons1", "persons2"]
     return Optimizing(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Postures)
 
-    
+
 
 
 
