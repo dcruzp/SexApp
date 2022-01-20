@@ -92,11 +92,26 @@ def show_modelo_2():
         
         sol.append(name.varValue)
     
+    if result.status == 1:
+      timeresult = pd.DataFrame(sol , index=optionsPositions)
+      container = st.container()
+      container.line_chart(timeresult)
+      container.area_chart(timeresult)
+      
+    elif result.status == 0:
+      st.title('No se resolvió el problema.')
     
-    timeresult = pd.DataFrame(sol , index=optionsPositions)
-    container = st.container()
-    container.line_chart(timeresult)
-    container.area_chart(timeresult)
+    elif result.status == -1:
+      st.title('El problema es inviable.')
+    
+    elif result.status == -2:
+      st.title('El problema es ilimitado.')
+    
+    elif result.status == -3:
+      st.title('El problema es indefinido')
+    
+    
+      
 
 
 
