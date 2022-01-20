@@ -5,7 +5,7 @@ import sqlite3
 from addposture import addposture
 from addparticipants import addparticipant
 from viewmodel1 import show_modelo_1
-
+from viewmodel2 import show_modelo_2
 
 #ECUT : E consumida por unidad de tiempo [][]
 #PGUT : Placer generado por unidad de Tiempo [][]
@@ -46,9 +46,10 @@ st.set_page_config( page_title='Sex App',
 # dandole un titulo a la Pagina 
 st.title('Sex App')
 
-
+# Titulo  de la barra lateral 
 st.sidebar.header("Sex App")
 
+# localizacion de la base de datos
 dblocation = "db\\sexapp.db"
 
 choice = st.sidebar.selectbox('Select view' ,['Modelo 1', 'Modelo 2' , 'Modelo 3' , 'Modelo 4' , 'Modelo 5' , 'Mostrar Posturas', 'Adicionar una postura'])
@@ -85,3 +86,5 @@ elif choice == 'Mostrar Posturas':
   show_all_postures()
 elif choice == 'Adicionar una postura':
   addposture()
+elif choice == 'Modelo 2':
+  show_modelo_2()
