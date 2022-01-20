@@ -87,7 +87,7 @@ def show_modelo_2():
     
     sol= []
     for name in result.variables():
-        if name == "H":
+        if name.name == "H":
             continue
         
         sol.append(name.varValue)
