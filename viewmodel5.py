@@ -19,7 +19,7 @@ def get_selected_postures():
     cursor.close()
     conn.close()
     options_positions = st.multiselect('Selecciona las posturas', postures,
-      default=postures[0], help="Seleccione las posturas que desea realizar en el acto sexual")
+    default=postures[0], help="Seleccione las posturas que desea realizar en el acto sexual")
     return options_positions
 
 
@@ -115,6 +115,41 @@ def show_modelo_5():
             container = st.container()
             container.line_chart(timeresult)
             container.area_chart(timeresult)
+
+            #Guaradando los placeres de todos en una lista de placeres [ persona[placer]]
+            pleasureForEverybody = []
+            for personIndex in range(len(participants)):
+                temp1 = []
+                for postureIndex in  range(len(optionsPositions)):
+                    temp1.append(sol[postureIndex] * PGUT[personIndex][postureIndex])
+
+                pleasureForEverybody.append(temp1)
+
+                st.subheader('Gráfico de Placer por posición de '+participants[personIndex])
+                data = pd.DataFrame({
+                'index': optionsPositions,
+                'Placer por posición': pleasureForEverybody[personIndex],
+                }).set_index('index')
+                st.bar_chart(data)
+
+            #Guardando las energías de todos en una lista de energías [ persona[energía]]
+            energyForEverybody = []
+            for personIndex in range(len(participants)):
+                temp1 = []
+                for postureIndex in  range(len(optionsPositions)):
+                    temp1.append(sol[postureIndex] * ECUT[personIndex][postureIndex])
+
+
+                energyForEverybody.append(temp1)
+
+                st.subheader('Gráfico de enrgía consumida por posición de '+participants[personIndex])
+                data = pd.DataFrame({
+                'index': optionsPositions,
+                'Energía por posición': energyForEverybody[personIndex],
+                }).set_index('index')
+                st.bar_chart(data)
+
+
 
         elif result.status == 0:
             st.title('No se resolvió el problema.')
