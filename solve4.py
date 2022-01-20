@@ -1,10 +1,9 @@
 import pulp as pl
 
 
-def Solve4thProblem(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Postures):
+def Solve4thProblem(ECUT,PGUT,PIP,NPPOO,Persons,Postures):
     ECUT = ECUT
     PGUT= PGUT 
-    EIP = EIP
     PIP = PIP
     NPPOO = NPPOO
     
@@ -16,9 +15,9 @@ def Solve4thProblem(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Postures):
     # NPPOO = [400, 500]
     # Postures= ["postura1", "postura2"]
     # Persons= ["persons1", "persons2"]
-    return Optimizing(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Postures)
+    return Optimizing(ECUT,PGUT,PIP,NPPOO,Persons,Postures)
     
-def Optimizing(ECUT,PGUT,EIP,PIP,NPPOO, TP,Persons,Positions):
+def Optimizing(ECUT,PGUT,PIP,NPPOO,Persons,Positions):
         
     problem = pl.LpProblem("Minimizar la energia inicial H",pl.LpMinimize) 
     
@@ -29,7 +28,9 @@ def Optimizing(ECUT,PGUT,EIP,PIP,NPPOO, TP,Persons,Positions):
    
     EnergyInitialVars=[]
    
-    TimepositionVars = TP
+    TimepositionVars = []
+    for position in range(len(Positions)):
+        TimepositionVars.append(pl.LpVariable(Positions[position],lowBound=1,cat=pl.LpInteger))
         
     for person in range(len(Persons)):
         EnergyInitialVars.append(pl.LpVariable(Persons[person],lowBound=0,cat=pl.LpInteger))
