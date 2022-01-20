@@ -28,7 +28,10 @@ def show_modelo_3():
   st.title('Maximizar el placer del que menor placer alcance al finalizar el acto sexual.')
 
   st.write("""
-    En este modelo se intenta maximizar el placer individual de kkKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK 
+    En este modelo se intenta minimizar el cansancio del participante
+con mayor cansancio al finalizar el acto
+sexual. El modelo utilizado resuelve este problema maximizando una variable arbitraria
+    H > 0 , de tal manera que todas las persona tengan una energía residual final mayor que dicho H.
   """)
   
   optionsPositions = get_selected_postures()
