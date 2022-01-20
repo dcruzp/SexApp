@@ -12,11 +12,11 @@ import pulp as pl
 
 
 def Solve2ndProblem(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Postures):
-    ECUT = ECUT
-    PGUT= PGUT 
-    EIP = EIP
-    PIP = PIP
-    NPPOO = NPPOO
+    # ECUT = ECUT
+    # PGUT= PGUT 
+    # EIP = EIP
+    # PIP = PIP
+    # NPPOO = NPPOO
 
     # ECUT = [[2,3],[1,4]]
     # PGUT= [[4,5],[5,6]] 
