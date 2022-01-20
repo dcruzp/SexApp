@@ -1,4 +1,4 @@
-@@ -1,125 +0,0 @@
+
 import streamlit as st
 import sqlite3
 from addparticipants import addparticipant
