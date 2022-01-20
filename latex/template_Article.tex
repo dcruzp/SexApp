@@ -1,0 +1,146 @@
+\documentclass{llncs}
+\usepackage{makeidx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+
+%opening
+\title{\large\huge Seminario\\ de \\Proyecto MMA\\ \small Tema:\\ SexApp}
+\author{ Integrantes: \\ Dayron Fernández Acosta C311\\ Javier Villar Alonso C311 \\ Julio José Horta C312\\ Daniel de la Cruz Prieto C311\\ }
+
+\begin{document}
+
+\maketitle
+\newpage
+
+\section{Introducción}
+Desde el inicio de los tiempos siempre ha habido la necesidad de que los dos sexos (mujer y hombre) se relacionen con la finalidad de que en un futuro se casen y así la especie pueda perdurar, lo cual es un instinto. El apego a sus allegados se demostraba en la consideración que tenían con los muertos y la decoración del acto fúnebre, y el amor propio se notaba en sus vestimentas además de la preocupación por sus ornamentas. Por eso se puede afirmar que fue la base para la creación y el surgimiento del amor para lo cual necesitaban de la comunicación.
+\newline
+\newline
+El amor es una construcción cultural y cada período histórico ha desarrollado una concepción diferente del amor. Y es muy importante mencionar que el tipo de amor que se presenta durante las relaciones amorosas es el amor romántico es cual se define como una manifestación de atracción física, entre dos personas, como la afinidad compartida por dos individuos, también podríamos decir que el amor es un sentimiento que comparten dos personas aleatorias que se encuentran y no pueden evitar atraerse entre sí. A pesar de que las relaciones amorosas de los adolescentes no siempre han tenido el mismo significado, siempre han estado presentes, y no solo durante la adolescencia, sino también en las otras etapas de la vida humana pero en los tiempos actuales, la adolescencia es la etapa donde mayormente se generan los noviazgos y es también donde se centra la problemática de la investigación que se realiza. 
+\newline
+\newline
+En el momento que surge este interés amoroso, surge un fuerte deseo de actividad sexual entre la pareja inconscientemente, y a la vez una preocupación y a veces no logramos terminar como queremos una relación sexual.
+\newline
+\newline
+En este trabajo abordaremos el problema de las relaciones sexuales y le daremos solución a diferentes modelos para que les sea más fácil realizar actos sexuales y puedan satisfacer siempre a su pareja
+
+
+\section{Problema Analizado}
+De un grupo que se reúne para realizar una actividad sexual nos interesa saber que secuencia para fomentar un resultado en específico, como lo es que el placer entre los individuos sea el máximo, o que el acto sexual dure el mayor tiempo posible, o hallar cual es el mejor resultado para que una cierta persona obtenga el mejor beneficio en ese acto sexual.
+\newline
+\newline
+Para dar respuesta a este problema nos enfocamos en diversas variables:
+
+\begin{tabular}{ccc}
+	\textbf{posturas} & $\rightarrow$ & listas de las posturas disponibles para el grupo de personas\\
+	\textbf{personas} & $\rightarrow$ & listas de las personas que realizarán el acto sexual\\
+	
+	\textbf{personaXplacer (PGUT)} & $\rightarrow$ &  placer que le otorga a cada persona por cada posturas \\
+	\textbf{personaXenergia (ECUT)} & $\rightarrow$ & energía que pierde cada persona por cada postura\\
+	\textbf{enegiaInicial (EIP)} & $\rightarrow$ & Energía inicial de la persona\\
+	\textbf{placerInicial (PIP)} & $\rightarrow$ & Placer inicial de la persona\\
+	\textbf{placerRequerido (NPPOO)} & $\rightarrow$ & Placer Requerido de la persona para llegar al orgasmo
+\end{tabular}
+\newline
+\newline
+\newline
+Donde los modelos a estudiar serían los siguientes:
+	
+\section{Modelos:}
+
+\subsection{Maximizar la duración del acto sexual:}
+En este caso nos interesa extender la duración de un acto sexual, lo que implica realizar el mayor tiempo de posturas que logre satisfacer a las personas que anden realizando el acto sexual y que cumplan con los requisitos suficientes para que todos estén satisfechos, para ello es necesario realizaremos un modelo donde nos interesa maximizar la sumatoria de los tiempos dedicados a cada postura.
+\newline
+\newline
+Luego procedemos a trabajar las siguientes restricciones:
+
+$1-)$ $\sum_{pos} PGUT[per][pos]t[pos] >= NPPOO[per] - PIP[per]$
+\newline
+\newline
+Esta restricción expresa que el placer alcanzado por cada persona en las sumas de las posturas ejecutadas debe ser mayor o igual a lo necesario para llegar al orgasmo
+\newline
+\newline
+$2-)$ $\sum_{pos} ECUT[per][pos]*t[pos] <= EIP[per]$
+\newline
+\newline
+Esta restricción expresa que durante el acto sexual ninguna persona debe superar la energía que puede emplear en el acto sexual
+
+
+\subsection{Maximizar el placer del que menor placer alcance al analizar el acto sexual:}
+Para este modelo nos interesa encontrar a la persona que menor placer pueda alcanzar y proceder a a maximizar su placer. Para ello maximizaremos una varible h que será el placer que alcance la persona h y mantendremos de variables los tiempos de cada postura.
+\newline
+\newline
+Luego le añadiremos las siguientes restricciones:
+\newline
+\newline
+$1-)$ $\sum_{pos} PGUT[per][pos]*t[pos] >= h - PIP[per]$
+\newline
+\newline
+En esta restricción expresa que la suma de los placeres alcanzados por las personas en el acto sexual debe de ser mayor o igual al placer alcanzado por el de menor placer menos la cantidad de placer necesaria para que alcance el orgasmo
+\newline
+\newline
+$2-)$ $\sum_{pos} t[pos]*PUGT[per][pos] >= NPPOO[p] - PIP[per]$
+\newline
+\newline
+Esta restricción expresa que el placer alcanzado por cada persona en las sumas de las posturas ejecutadas debe ser mayor o igual a lo necesario para llegar al orgasmo
+\newline
+\newline
+$3-)$ $\sum_{pos} t[pos]*ECUT[per][pos] <= EIP[p]$
+\newline
+\newline
+Esta restricción expresa que durante el acto sexual ninguna persona debe superar la energía que puede emplear en el acto sexual
+
+
+\subsection{Minimizar el cansancio del participante con mayor cansancio al analizar el acto sexual:}
+Este modelo es parecido al anterior, pero en este caso nos interesa minimizar el cansancio del que mayor cansancio alcanza al finalizar el acto sexual, para ello minimizaremos h y mantendremos como variables los tiempos de cada postura.
+\newline
+\newline
+Luego añadiremos las siguientes restricciones:
+\newline
+\newline
+$1-)$ $\sum_{pos} ECUT[per][pos]*t[pos] >= h - EIP[per]$
+\newline
+\newline
+Donde expresamos que todas las personas en el acto solo pueden gastar una energía mayor o igual a la diferencia entre la energía del que mayor cansancio acumula menos la energía inicial de la persona antes de comenzar el acto sexual
+\newline
+\newline
+$2-)$ $\sum_{pos} PGUT[per][pos]*T[pos] >= NPPOO[per] - PIP[per]$
+\newline
+\newline
+Esta restricción expresa que el placer alcanzado por cada persona en las sumas de las posturas ejecutadas debe ser mayor o igual a lo necesario para llegar al orgasmo
+\newline
+\newline
+$3-)$ $\sum_{pos} t[pos]*ECUT[per][pos] <= EIP[p]$
+\newline
+\newline
+Esta restricción expresa que durante el acto sexual ninguna persona debe superar la energía que puede emplear en el acto sexual
+
+\subsection{Minimizar la energía inicial de todos los participantes de forma que al terminar todos hayan alcanzado el orgasmo y tengan la misma energía:}
+sadasd
+
+\subsection{Maximizar el placer inicial de un participante específico, de forma tal que todos los participantes, excepto el específico, alcancen el orgasmo:}
+sadasd
+
+\section{Programación los modelos}	
+
+
+
+\section{Aplicación Presentada}
+
+
+\subsection{Guía técnica de la aplicación}
+
+
+\section{Guía de modificación externa del código}
+
+
+\section{División organizativa del trabajo}
+
+
+\section{Conclusiones}
+
+
+\end{document}
