@@ -28,7 +28,9 @@ def show_modelo_2():
   st.title('Maximizar el placer del que menor placer alcance al finalizar el acto sexual.')
 
   st.write("""
-    En este modelo se intenta maximizar el placer individual de kkKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK 
+    En este modelo se intenta maximizar el placer individual del participante que menos placer mantiene
+    al finalizar el acto sexual. El modelo utilizado resuelve este problema maximizando una variable arbitraria
+    H > 0 , de tal manera que todas las persona tengan un placer final mayor que dicho H.
   """)
   
   optionsPositions = get_selected_postures()
