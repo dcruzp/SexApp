@@ -82,13 +82,13 @@ def show_all_postures():
 
 if choice == 'Modelo 1':
   show_modelo_1()
-elif choice == 'Mostrar Posturas':
-  show_all_postures()
-elif choice == 'Adicionar una postura':
-  addposture()
 elif choice == 'Modelo 2':
   show_modelo_2()
-elif choice == 'Modelo 4':
-  show_modelo_4()
 elif choice == 'Modelo 3':
     show_modelo_3()
+elif choice == 'Modelo 4':
+  show_modelo_4()
+elif choice == 'Adicionar una postura':
+  addposture()
+elif choice == 'Mostrar Posturas':
+  show_all_postures()
