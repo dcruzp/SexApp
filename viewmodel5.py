@@ -46,12 +46,12 @@ def show_modelo_5():
 
   # st.dataframe(ECUT)
 
-    choice= st.sidebar.selectbox('Select Person', participants)
-    personIndex = 0
+  choice= st.sidebar.selectbox('Selecciona la persona a marginar',participants,key= 'personsSideabar' )
+  personIndex = 0
     
-    for i in range(len(participants)):
-        if choice == participants[i]:
-            personIndex = i
+  for i in range(len(participants)):
+    if choice == participants[i]:
+      personIndex = i
         
 
   st.subheader ('Placer generado por unidad de tiempo')
