@@ -85,14 +85,41 @@ def show_modelo_4():
   st.empty()
   if st.button("Analizar"): 
     result = solve4.Solve4thProblem(ECUT,PGUT,NPPOO,PIP,participants,optionsPositions)
+
+    positions_variables = [name.varValue for name in result.variables() if inlist(name.name, optionsPositions)]
+    participants_variables = [name.varValue for name in result.variables() if inlist(name.name , participants)]
     
-    sol= []
-    for name in result.variables():
-        if name.name == "H":
-            continue
-        sol.append(name.varValue)
+    timeresult = pd.DataFrame(positions_variables, index=optionsPositions)
     
-    timeresult = pd.DataFrame(sol , index=optionsPositions)
     container = st.container()
-    container.line_chart(timeresult)
+    
+    # grafica de tiempo por posiciones 
+    container.markdown('#### Graficas de tiempos por posiciones')
     container.area_chart(timeresult)
+
+    # grafica de energia inicial por participantes 
+    container.markdown('#### Graficas de energia inicial por participantes')
+    energiainicialresult = pd.DataFrame(participants_variables,index= participants)
+    container.bar_chart(energiainicialresult)
+
+    # grafica de energia final por participantes
+
+    example = []
+    for participant in range(len(participants)):
+      sum =0 
+      for posture in range(len(optionsPositions)):
+        sum += positions_variables[posture] * ECUT[participant][posture]
+      example.append(sum)
+    print(example)
+
+
+def inlist (name, optionsPositions):
+  characters = '_? '
+  aux_name = ''.join( x for x in name if x not in characters)
+
+  for pos in optionsPositions:
+    aux_pos = ''.join( x for x in pos if x not in characters)
+    if aux_name == aux_pos:
+      return True
+  return False
+

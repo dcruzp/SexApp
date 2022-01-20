@@ -22,8 +22,6 @@ def Optimizing(ECUT,PGUT,PIP,NPPOO,Persons,Positions):
     problem = pl.LpProblem("Minimizar la energia inicial H",pl.LpMinimize) 
     
     h = pl.LpVariable("H",lowBound=1,cat=pl.LpInteger)
-
-    
     
     TimepositionVars=[]
     EnergyInitialVars=[]
@@ -51,5 +49,3 @@ def Optimizing(ECUT,PGUT,PIP,NPPOO,Persons,Positions):
     problem.solve()
     return problem
     print("a")
-    
-    
