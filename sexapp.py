@@ -6,6 +6,7 @@ from addposture import addposture
 from addparticipants import addparticipant
 from viewmodel1 import show_modelo_1
 from viewmodel2 import show_modelo_2
+from viewmodel3 import show_modelo_3
 
 #ECUT : E consumida por unidad de tiempo [][]
 #PGUT : Placer generado por unidad de Tiempo [][]
@@ -88,3 +89,5 @@ elif choice == 'Adicionar una postura':
   addposture()
 elif choice == 'Modelo 2':
   show_modelo_2()
+elif choice == 'Modelo 3':
+    show_modelo_3()
