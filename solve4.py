@@ -18,7 +18,7 @@ def Solve4thProblem(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Postures):
     # Persons= ["persons1", "persons2"]
     return Optimizing(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Postures)
     
-def Optimizing(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Positions):
+def Optimizing(ECUT,PGUT,EIP,PIP,NPPOO, TP,Persons,Positions):
         
     problem = pl.LpProblem("Minimizar la energia inicial H",pl.LpMinimize) 
     
@@ -26,10 +26,10 @@ def Optimizing(ECUT,PGUT,EIP,PIP,NPPOO,Persons,Positions):
 
     
     
-    TimepositionVars=[]
+   
     EnergyInitialVars=[]
-    for position in range(len(Positions)):
-        TimepositionVars.append(pl.LpVariable(Positions[position],lowBound=1,cat=pl.LpInteger))
+   
+    TimepositionVars = TP
         
     for person in range(len(Persons)):
         EnergyInitialVars.append(pl.LpVariable(Persons[person],lowBound=0,cat=pl.LpInteger))
