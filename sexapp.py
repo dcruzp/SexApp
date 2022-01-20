@@ -1,4 +1,4 @@
-from pygame import image
+
 from scipy.optimize import linprog 
 import streamlit as st
 import sqlite3
@@ -57,7 +57,7 @@ dblocation = "db\\sexapp.db"
 
 choice = st.sidebar.selectbox('Select view' ,['Modelo 1', 'Modelo 2' , 'Modelo 3' , 'Modelo 4' , 'Modelo 5' , 'Mostrar Posturas', 'Adicionar una postura'])
 
-choicemodel1 = st.sidebar.selectbox('Select view', ['sdfsdf', 'afsdf'])
+
 
 
 @st.cache

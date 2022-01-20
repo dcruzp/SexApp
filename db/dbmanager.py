@@ -1,7 +1,7 @@
 import sqlite3
 from pprint import pprint
 
-dblocation = "C:\\Users\\Daniel\\Documents\\University\\Matematica Aplicada\\SexApp\\db\\sexapp.db"
+dblocation = "db\\sexapp.db"
 
 def create_table (conn):
   c = conn.cursor()
