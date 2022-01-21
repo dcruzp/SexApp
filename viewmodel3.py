@@ -25,7 +25,7 @@ def get_selected_postures ():
 
 def show_modelo_3():
 
-  st.title('Maximizar el placer del que menor placer alcance al finalizar el acto sexual.')
+  st.title('Minimizar el cansancio del participante con mayor cansancio al finalizar el acto sexual.')
 
   st.write("""
     En este modelo se intenta minimizar el cansancio del participante

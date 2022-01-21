@@ -9,6 +9,7 @@ from viewmodel2 import show_modelo_2
 from viewmodel3 import show_modelo_3
 from viewmodel4 import show_modelo_4
 from viewmodel5 import show_modelo_5
+from streamlit_option_menu import option_menu
 
 #ECUT : E consumida por unidad de tiempo [][]
 #PGUT : Placer generado por unidad de Tiempo [][]
@@ -49,13 +50,13 @@ st.set_page_config( page_title='Sex App',
 # dandole un titulo a la Pagina 
 st.title('Sex App')
 
-# Titulo  de la barra lateral 
-st.sidebar.header("Sex App")
+# # Titulo  de la barra lateral 
+# st.sidebar.header("Sex App")
 
 # localizacion de la base de datos
 dblocation = "db\\sexapp.db"
 
-choice = st.sidebar.selectbox('Select view' ,['Modelo 1', 'Modelo 2' , 'Modelo 3' , 'Modelo 4' , 'Modelo 5' , 'Mostrar Posturas', 'Adicionar una postura'])
+
 
 
 
@@ -83,17 +84,25 @@ def show_all_postures():
         st.image(images[i])
 
 
-if choice == 'Modelo 1':
+#choice = st.sidebar.selectbox('Select view' ,['Modelo 1', 'Modelo 2' , 'Modelo 3' , 'Modelo 4' , 'Modelo 5' , 'Mostrar Posturas', 'Adicionar una postura'])
+
+
+with st.sidebar:
+  option_menu =  option_menu("Sex App Menu", ['Modelo 1', 'Modelo 2','Modelo 3', 'Modelo 4', 'Modelo 5','Mostrar Posturas', 'Adicionar una postura'], 
+                            icons=['hourglass', 'graph-up-arrow','graph-down','lightning-fill','graph-up', 'folder-fill', 'plus-circle'], menu_icon="gender-ambiguous", default_index=0)
+
+
+if option_menu == 'Modelo 1':
   show_modelo_1()
-elif choice == 'Modelo 2':
+elif option_menu == 'Modelo 2':
   show_modelo_2()
-elif choice == 'Modelo 3':
+elif option_menu == 'Modelo 3':
     show_modelo_3()
-elif choice == 'Modelo 4':
+elif option_menu == 'Modelo 4':
   show_modelo_4()
-elif choice == 'Modelo 5':
+elif option_menu == 'Modelo 5':
   show_modelo_5()
-elif choice == 'Adicionar una postura':
+elif option_menu == 'Adicionar una postura':
   addposture()
-elif choice == 'Mostrar Posturas':
-  show_all_postures()
+elif option_menu == 'Mostrar Posturas':
+    show_all_postures()
