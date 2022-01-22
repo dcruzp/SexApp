@@ -5,6 +5,7 @@ import numpy as np
 import pandas as pd
 from scipy.optimize import linprog
 import solve5
+import hydralit_components as hc
 
 dblocation = "db\\sexapp.db"
 
@@ -24,82 +25,168 @@ def get_selected_postures():
 
 
 def show_modelo_5():
+  menu_data = [
+    {'id': 'selectpositions','icon': "plus-square", 'label':"Posiciones" },
+    {'id': 'selectpersons','icon':"plus-square",'label':"Personas"},
+    {'id': 'ecut','icon':"plus-square",'label':"ECUT"},
+    {'id': 'pgut','icon':"plus-square",'label':"PGUT"},
+    {'id': 'eip','icon':"plus-square",'label':"EIP"},
+    {'id': 'personamarginal','icon':"plus-square",'label':"Persona Marginal"},
+    {'id': 'nppoo','icon':"plus-square",'label':"NPPOO"},
+    {'id': 'analisis','icon':"plus-square",'label':"Analizar"},
+]
 
+  over_theme = {'txc_inactive': '#FFFFFF'}
+  menu_id = hc.nav_bar(
+      menu_definition=menu_data,
+      override_theme=over_theme,
+      home_name='Home',
+      login_name='Logout',
+      hide_streamlit_markers=False, #will show the st hamburger as well as the navbar now!
+      sticky_nav=False, #at the top or not
+      sticky_mode='pinned', #jumpy or not-jumpy, but sticky or pinned
+  )
+
+  col1 , col2 , col3 = st.columns([2,4,2])
+
+
+  with col1:
     st.title(
         'Maximizar el placer inicial de un participante específico.')
 
-    st.write("""
-    En este modelo se intenta maximizar el placer inicial de un
-    participante específico, de forma tal que
-    todos los participantes, excepto el
-    específico, alcancen el orgasmo. Para ello se utiliza una restricción extra sobre la persona que no
-    debe alcanzar un orgasmo, y se maximiza una variable arbitraria h, que representa el placer inicial de dicha persona.
-  """)
 
-    optionsPositions = get_selected_postures()
+  with col2:
+    
+    if menu_id == 'Home':
+      st.write("""
+      En este modelo se intenta maximizar el placer inicial de un
+      participante específico, de forma tal que
+      todos los participantes, excepto el
+      específico, alcancen el orgasmo. Para ello se utiliza una restricción extra sobre la persona que no
+      debe alcanzar un orgasmo, y se maximiza una variable arbitraria h, que representa el placer inicial de dicha persona.
+    """)
 
-    addparticipant()
+    if menu_id == 'selectpositions':
+      st.session_state['positions'] = get_selected_postures()
 
-    participants = st.session_state['persons']
 
-    st.subheader('Energía consumida por unidad de tiempo')
-    ECUT = [[] for item in range(len(participants))]
-    for i in range(len(participants)):
+
+
+
+    elif menu_id == 'selectpersons':
+      addparticipant('participant')
+
+    elif menu_id == 'ecut':
+      st.subheader('Energía consumida por unidad de tiempo')
+
+      participants = st.session_state['persons']
+      optionsPositions = st.session_state['positions']
+
+      ECUT = [ [1 for i in optionsPositions] for item in participants]
+      # print(participants)
+      # print(optionsPositions)
+      print(ECUT)
+      for i in range(len(participants)):
         with st.expander(participants[i]):
-            for j in range(len(optionsPositions)):
-                ECUT[i].append(st.slider(optionsPositions[j], min_value=1,
-                  max_value=1000, key='ECUT' + str(i*len(optionsPositions) + j)))
+          for j in range(len(optionsPositions)):
+            current_value = 1 
+            if 'ECUT' in st.session_state:  
+              try:
+                current_value = st.session_state['ECUT'][i][j]
+              except Exception as e:
+                print('Hubo una excepcion al actualizar el valor actual de la  ECUT : ', e)
+            ECUT[i][j] = st.slider(optionsPositions[j],min_value=1 , max_value=40, value = current_value,key= 'ECUT_' + str(i*len(optionsPositions) + j))
+      print('se actauliza el ECUT') 
+      st.session_state['ECUT'] = ECUT
 
-    # st.dataframe(ECUT)
 
-    choice = st.sidebar.selectbox(
-        'Selecciona la persona a marginar', participants, key='personsSideabar')
-    personIndex = 0
 
-    for i in range(len(participants)):
-        if choice == participants[i]:
-            personIndex = i
 
-    st.subheader('Placer generado por unidad de tiempo')
-    PGUT = [[]for item in range(len(participants))]
-    for i in range(len(participants)):
+
+
+    
+
+
+    
+    elif menu_id == 'pgut':
+      st.subheader ('Placer generado por unidad de tiempo')
+
+      participants = st.session_state['persons']
+      optionsPositions = st.session_state['positions']
+
+      PGUT = [ [1 for i in optionsPositions] for item in participants]
+      for i in range(len(participants)):
         with st.expander(participants[i]):
-            for j in range(len(optionsPositions)):
-                PGUT[i].append(st.slider(optionsPositions[j], min_value=1,
-                               max_value=100, key='ECUT' + str(i*len(optionsPositions) + j)))
-
-    # st.dataframe(PGUT)
-
-    st.subheader('Energía inicial de los participantes')
-    EIP = []
-    with st.expander('Energía inicial de cada participante'):
-        for i in range(len(participants)):
-            EIP.append(
-                st.slider(participants[i], min_value=1, max_value=100, key='EIP' + str(i)))
-
+          for j in range(len(optionsPositions)):
+            print('(',i,j,')')
+            current_value = 1
+            if 'PGUT' in st.session_state: 
+              try:
+                current_value = st.session_state['PGUT'][i][j]
+              except Exception as e:
+                print('Hubo una excepcion al actualizar el valor actual del PGUT : ', e)
+            PGUT[i][j]= st.slider(optionsPositions[j], min_value=1, max_value=20 ,value= current_value,key= 'PGUT' + str(i*len(optionsPositions) + j))
+      st.session_state['PGUT'] = PGUT
     # st.bar_chart(EIP,use_container_width=False)
 
-    st.subheader('Placer inicial de los particiapantes')
-    PIP = []
-    with st.expander('Placer inicial de los participantes'):
-        for i in range(len(participants)):
-            PIP.append(
-                st.slider(participants[i], min_value=1, max_value=100, key='PIP' + str(i)))
+    elif menu_id == 'eip':
+      st.subheader('Energía inicial de los participantes')
+      participants = st.session_state['persons']
+      EIP = [1 for item in participants]
+      with st.expander('Energía inicial de cada participante'):
+        for i in range (len(participants)):
+          current_value = 1 
+          if 'EIP' in st.session_state:
+            current_value = st.session_state['EIP'][i]
+          EIP[i] = st.slider(participants[i], min_value= 1 , max_value= 300 ,value=current_value, key='EIP' + str(i))
+      st.session_state['EIP'] = EIP
 
-    # st.bar_chart(PIP,use_container_width=False)
+    elif menu_id == 'nppoo':
+      st.subheader('Niveles de placer de cada participante para obtener el orgasmo')
+      participants = st.session_state['persons']
+      NPPOO = [1 for item in participants] 
+      with st.expander('Niveles de placer para obtener el orgasmo'): 
+        for i in range (len(participants)):
+          current_value = 1 
+          if 'NPPOO' in st.session_state:
+            current_value = st.session_state['NPPOO'][i]
+          NPPOO[i] = st.slider(participants[i], min_value=150 , max_value=300 ,value = current_value, key= 'NPPOO'+ str(i))
+      st.session_state['NPPOO'] = NPPOO
 
-    st.subheader(
-        'Niveles de placer de cada participante para obtener el orgasmo')
-    NPPOO = []
-    with st.expander('Niveles de placer para obtener el orgasmo'):
-        for i in range(len(participants)):
-            NPPOO.append(
-                st.slider(participants[i], min_value=150, max_value=300, key='NPPOO' + str(i)))
+    elif menu_id == 'personamarginal':
 
-    # st.bar_chart(NPPOO,use_container_width=False)
+      participants = st.session_state['persons']
 
-    st.empty()
-    if st.button("Analyce"):
+      choice = st.selectbox(
+        'Selecciona la persona a marginar', participants, key='personsSideabar')
+      personIndex = 0
+
+      if 'pm' not in st.session_state:
+        st.session_state['pm'] = personIndex
+      
+      for i in range(len(participants)):
+          if choice == participants[i]:
+              personIndex = i
+      st.session_state['pm'] = personIndex
+      
+
+
+
+    
+    elif menu_id == 'analisis':
+      if st.button("Hacer Analisis"):
+
+        ECUT = st.session_state['ECUT']
+        PGUT = st.session_state['PGUT']
+        EIP = st.session_state['EIP']
+        PIP = st.session_state['PIP']
+        NPPOO = st.session_state['NPPOO']
+        participants = st.session_state['persons']
+        optionsPositions = st.session_state['positions']
+        personIndex = st.session_state['pm']
+
+
+
         result = solve5.Solve5thProblem(
             ECUT, PGUT, EIP, PIP, NPPOO, participants, optionsPositions, personIndex)
 
@@ -162,3 +249,5 @@ def show_modelo_5():
 
         elif result.status == -3:
             st.title('El problema es indefinido')
+
+    

@@ -29,7 +29,7 @@ def show_modelo_4():
     {'id': 'selectpersons','icon':"plus-square",'label':"Personas"},
     {'id': 'ecut','icon':"plus-square",'label':"ECUT"},
     {'id': 'pgut','icon':"plus-square",'label':"PGUT"},
-    {'id': 'eip','icon':"plus-square",'label':"EIP"},
+    # {'id': 'eip','icon':"plus-square",'label':"EIP"},
     {'id': 'pip','icon':"plus-square",'label':"PIP"},
     {'id': 'nppoo','icon':"plus-square",'label':"NPPOO"},
     {'id': 'analisis','icon':"plus-square",'label':"Analizar"},
