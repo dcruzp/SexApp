@@ -53,9 +53,6 @@ def show_modelo_1():
   col1 , col2 , col3 = st.columns([2,4,2])
 
 
-  # participants = ['perico']
-  # optionsPositions = ['perro']
-
   with col1:
     st.subheader('Maximizar la duración del  acto sexual')
   

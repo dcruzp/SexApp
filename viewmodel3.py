@@ -5,6 +5,7 @@ import numpy as np
 import pandas as pd
 from scipy.optimize import linprog 
 import solve3
+import hydralit_components as hc
 
 dblocation = "db\\sexapp.db"
 
@@ -25,140 +26,204 @@ def get_selected_postures ():
 
 def show_modelo_3():
 
-  st.title('Minimizar el cansancio del participante con mayor cansancio al finalizar el acto sexual.')
+  menu_data = [
+    {'id': 'selectpositions','icon': "plus-square", 'label':"Posiciones" },
+    {'id': 'selectpersons','icon':"plus-square",'label':"Personas"},
+    {'id': 'ecut','icon':"plus-square",'label':"ECUT"},
+    {'id': 'pgut','icon':"plus-square",'label':"PGUT"},
+    {'id': 'eip','icon':"plus-square",'label':"EIP"},
+    {'id': 'pip','icon':"plus-square",'label':"PIP"},
+    {'id': 'nppoo','icon':"plus-square",'label':"NPPOO"},
+    {'id': 'analisis','icon':"plus-square",'label':"Analizar"},
+]
 
-  st.write("""
-    En este modelo se intenta minimizar el cansancio del participante
-con mayor cansancio al finalizar el acto
-sexual. El modelo utilizado resuelve este problema maximizando una variable arbitraria
-    H > 0 , de tal manera que todas las persona tengan una energía residual final mayor que dicho H.
-  """)
-  
-  optionsPositions = get_selected_postures()
-
-  addparticipant()
-
-  participants = st.session_state['persons']
-  
-  st.subheader('Energía consumida por unidad de tiempo')
-  ECUT = [[] for item in range (len(participants))]
-  for i in range(len(participants)):
-    with st.expander(participants[i]):
-      for j in range(len(optionsPositions)):
-        ECUT[i].append(st.slider(optionsPositions[j],min_value=1 , max_value=1000,key= 'ECUT' + str(i*len(optionsPositions) + j)))
-
-  # st.dataframe(ECUT)
+  over_theme = {'txc_inactive': '#FFFFFF'}
+  menu_id = hc.nav_bar(
+      menu_definition=menu_data,
+      override_theme=over_theme,
+      home_name='Home',
+      login_name='Logout',
+      hide_streamlit_markers=False, #will show the st hamburger as well as the navbar now!
+      sticky_nav=False, #at the top or not
+      sticky_mode='pinned', #jumpy or not-jumpy, but sticky or pinned
+  )
 
 
-  st.subheader ('Placer generado por unidad de tiempo')
-  PGUT = [[]for item in range(len(participants))]
-  for i in range(len(participants)):
-    with st.expander(participants[i]):
-      for j in range(len(optionsPositions)):
-        PGUT[i].append(st.slider(optionsPositions[j], min_value=1, max_value=100 ,key= 'ECUT' + str(i*len(optionsPositions) + j)))
-  
-  # st.dataframe(PGUT)
+
+  col1 , col2 , col3 = st.columns([2,4,2])
+
+  with col1:
+    st.subheader('Minimizar el cansancio del participante con mayor cansancio al finalizar el acto sexual.')
+
+  with col2:
+    if menu_id == 'Home':
+      st.write("""
+        En este modelo se intenta minimizar el cansancio del participante
+    con mayor cansancio al finalizar el acto
+    sexual. El modelo utilizado resuelve este problema maximizando una variable arbitraria
+        H > 0 , de tal manera que todas las persona tengan una energía residual final mayor que dicho H.
+      """)
 
 
-  st.subheader('Energía inicial de los participantes')
-  EIP = []
-  with st.expander('Energía inicial de cada participante'):
-    for i in range (len(participants)):
-      EIP.append(st.slider(participants[i], min_value= 1 , max_value= 100 , key='EIP' + str(i)))
-  
-  #st.bar_chart(EIP,use_container_width=False)
+    if menu_id == 'selectpositions':
+      st.session_state['positions'] = get_selected_postures()
 
-  st.subheader('Placer inicial de los particiapantes')
-  PIP = []
-  with st.expander('Placer inicial de los participantes'):
-    for i in range(len(participants)):
-      PIP.append(st.slider(participants[i], min_value=1, max_value=100 , key= 'PIP' + str(i)))
-  
-  # st.bar_chart(PIP,use_container_width=False)
+    elif menu_id == 'selectpersons':
+      addparticipant('participant')
 
-  st.subheader('Niveles de placer de cada participante para obtener el orgasmo')
-  NPPOO = [] 
-  with st.expander('Niveles de placer para obtener el orgasmo'): 
-    for i in range (len(participants)):
-      NPPOO.append(st.slider(participants[i], min_value=150 , max_value=300, key= 'NPPOO'+ str(i)))
-  
-  # st.bar_chart(NPPOO,use_container_width=False)
+    elif menu_id == 'ecut':
+      st.subheader('Energía consumida por unidad de tiempo')
 
-  st.empty()
-  if st.button("Analyce"):
-    result = solve3.Solve3rdProblem(ECUT,PGUT,EIP,NPPOO,PIP,participants,optionsPositions)
-    
-    sol= []
-    for name in result.variables():
-        if name.name == "H":
-            continue
+      participants = st.session_state['persons']
+      optionsPositions = st.session_state['positions']
+
+      ECUT = [ [1 for i in optionsPositions] for item in participants]
+      # print(participants)
+      # print(optionsPositions)
+      print(ECUT)
+      for i in range(len(participants)):
+        with st.expander(participants[i]):
+          for j in range(len(optionsPositions)):
+            current_value = 1 
+            if 'ECUT' in st.session_state:  
+              try:
+                current_value = st.session_state['ECUT'][i][j]
+              except Exception as e:
+                print('Hubo una excepcion al actualizar el valor actual de la  ECUT : ', e)
+            ECUT[i][j] = st.slider(optionsPositions[j],min_value=1 , max_value=40, value = current_value,key= 'ECUT_' + str(i*len(optionsPositions) + j))
+      print('se actauliza el ECUT') 
+      st.session_state['ECUT'] = ECUT
+
+
+
+    elif menu_id == 'pgut':
+      st.subheader ('Placer generado por unidad de tiempo')
+
+      participants = st.session_state['persons']
+      optionsPositions = st.session_state['positions']
+
+      PGUT = [ [1 for i in optionsPositions] for item in participants]
+      for i in range(len(participants)):
+        with st.expander(participants[i]):
+          for j in range(len(optionsPositions)):
+            print('(',i,j,')')
+            current_value = 1
+            if 'PGUT' in st.session_state: 
+              try:
+                current_value = st.session_state['PGUT'][i][j]
+              except Exception as e:
+                print('Hubo una excepcion al actualizar el valor actual del PGUT : ', e)
+            PGUT[i][j]= st.slider(optionsPositions[j], min_value=1, max_value=20 ,value= current_value,key= 'PGUT' + str(i*len(optionsPositions) + j))
+      st.session_state['PGUT'] = PGUT
+
+
+    elif menu_id == 'eip':
+      st.subheader('Energía inicial de los participantes')
+      participants = st.session_state['persons']
+      EIP = [1 for item in participants]
+      with st.expander('Energía inicial de cada participante'):
+        for i in range (len(participants)):
+          current_value = 1 
+          if 'EIP' in st.session_state:
+            current_value = st.session_state['EIP'][i]
+          EIP[i] = st.slider(participants[i], min_value= 1 , max_value= 300 ,value=current_value, key='EIP' + str(i))
+      st.session_state['EIP'] = EIP
+
+    elif menu_id == 'pip':
+      st.subheader('Placer inicial de los particiapantes')
+      participants = st.session_state['persons']
+
+      PIP = [1 for item in participants]
+      with st.expander('Placer inicial de los participantes'):
+        for i in range(len(participants)):
+          current_value = 1 
+          if 'PIP' in st.session_state:
+            current_value = st.session_state['PIP'][i]
+          PIP[i] = st.slider(participants[i], min_value=1, max_value=20 , value=current_value , key= 'PIP' + str(i))
+        st.session_state['PIP'] = PIP
+
+    elif menu_id == 'nppoo':
+      st.subheader('Niveles de placer de cada participante para obtener el orgasmo')
+      participants = st.session_state['persons']
+      NPPOO = [1 for item in participants] 
+      with st.expander('Niveles de placer para obtener el orgasmo'): 
+        for i in range (len(participants)):
+          current_value = 1 
+          if 'NPPOO' in st.session_state:
+            current_value = st.session_state['NPPOO'][i]
+          NPPOO[i] = st.slider(participants[i], min_value=150 , max_value=300 ,value = current_value, key= 'NPPOO'+ str(i))
+      st.session_state['NPPOO'] = NPPOO
+
+    elif menu_id == 'analisis':
+      if st.button("Hacer Analisis"):
+
+        ECUT = st.session_state['ECUT']
+        PGUT = st.session_state['PGUT']
+        EIP = st.session_state['EIP']
+        PIP = st.session_state['PIP']
+        NPPOO = st.session_state['NPPOO']
+        participants = st.session_state['persons']
+        optionsPositions = st.session_state['positions']
+
+
+        result = solve3.Solve3rdProblem(ECUT,PGUT,EIP,NPPOO,PIP,participants,optionsPositions)
         
-        sol.append(name.varValue)
-    
-    if result.status == 1:
-      timeresult = pd.DataFrame(sol , index=optionsPositions)
-      container = st.container()
-      container.line_chart(timeresult)
-      container.area_chart(timeresult)
-      
-      #Guaradando los placeres de todos en una lista de placeres [ persona[placer]]
-      pleasureForEverybody = []
-      for personIndex in range(len(participants)):
-        temp1 = []
-        for postureIndex in  range(len(optionsPositions)):
-          temp1.append(sol[postureIndex] * PGUT[personIndex][postureIndex])
+        sol= []
+        for name in result.variables():
+            if name.name == "H":
+                continue
+            
+            sol.append(name.varValue)
         
-        pleasureForEverybody.append(temp1)
+        if result.status == 1:
+          timeresult = pd.DataFrame(sol , index=optionsPositions)
+          container = st.container()
+          container.line_chart(timeresult)
+          container.area_chart(timeresult)
+          
+          #Guaradando los placeres de todos en una lista de placeres [ persona[placer]]
+          pleasureForEverybody = []
+          for personIndex in range(len(participants)):
+            temp1 = []
+            for postureIndex in  range(len(optionsPositions)):
+              temp1.append(sol[postureIndex] * PGUT[personIndex][postureIndex])
+            
+            pleasureForEverybody.append(temp1)
+            
+            st.subheader('Gráfico de Placer por posición de '+participants[personIndex])
+            data = pd.DataFrame({
+            'index': optionsPositions,
+            'Placer por posición': pleasureForEverybody[personIndex],
+            }).set_index('index')
+            st.bar_chart(data)
+
+          #Guardando las energías de todos en una lista de energías [ persona[energía]]
+          energyForEverybody = []
+          for personIndex in range(len(participants)):
+            temp1 = []
+            for postureIndex in  range(len(optionsPositions)):
+              temp1.append(sol[postureIndex] * ECUT[personIndex][postureIndex])
+            
+            
+            energyForEverybody.append(temp1)
+            
+            st.subheader('Gráfico de enrgía consumida por posición de '+participants[personIndex])
+            data = pd.DataFrame({
+            'index': optionsPositions,
+            'Energía por posición': energyForEverybody[personIndex],
+            }).set_index('index')
+            st.bar_chart(data)
+          
+          
+          
+        elif result.status == 0:
+          st.title('No se resolvió el problema.')
         
-        st.subheader('Gráfico de Placer por posición de '+participants[personIndex])
-        data = pd.DataFrame({
-        'index': optionsPositions,
-        'Placer por posición': pleasureForEverybody[personIndex],
-        }).set_index('index')
-        st.bar_chart(data)
-
-      #Guardando las energías de todos en una lista de energías [ persona[energía]]
-      energyForEverybody = []
-      for personIndex in range(len(participants)):
-        temp1 = []
-        for postureIndex in  range(len(optionsPositions)):
-          temp1.append(sol[postureIndex] * ECUT[personIndex][postureIndex])
+        elif result.status == -1:
+          st.title('El problema es inviable.')
         
+        elif result.status == -2:
+          st.title('El problema es ilimitado.')
         
-        energyForEverybody.append(temp1)
-        
-        st.subheader('Gráfico de enrgía consumida por posición de '+participants[personIndex])
-        data = pd.DataFrame({
-        'index': optionsPositions,
-        'Energía por posición': energyForEverybody[personIndex],
-        }).set_index('index')
-        st.bar_chart(data)
-      
-      
-      
-    elif result.status == 0:
-      st.title('No se resolvió el problema.')
-    
-    elif result.status == -1:
-      st.title('El problema es inviable.')
-    
-    elif result.status == -2:
-      st.title('El problema es ilimitado.')
-    
-    elif result.status == -3:
-      st.title('El problema es indefinido')
-    
-    
-      
-
-
-
-# def solve_model1(optionsPositions , ECUT , PGUT, EIP, NPPOO, PIP):
-#   c = np.ones(len(optionsPositions))
-  
-#   A_ub = np.concatenate((ECUT, -1* np.array(PGUT)))
-#   b_ub = np.concatenate((EIP,-1* np.array(NPPOO) +PIP))
-
-#   result= linprog(c = c , A_ub= A_ub, b_ub = b_ub , bounds= (0,None), method='simplex')
-#   st.subheader('Tiempo dedicado a cada postura')
-#   return result
+        elif result.status == -3:
+          st.title('El problema es indefinido')
