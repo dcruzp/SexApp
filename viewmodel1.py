@@ -29,7 +29,7 @@ def show_modelo_1():
 
 
   menu_data = [
-    {'id': 'selectpositions','icon': "far fa-copy", 'label':"Posiciones" },
+    {'id': 'selectpositions','icon': "plus-square", 'label':"Posiciones" },
     {'id': 'selectpersons','icon':"plus-square",'label':"Personas"},
     {'id': 'ecut','icon':"plus-square",'label':"ECUT"},
     {'id': 'pgut','icon':"plus-square",'label':"PGUT"},
@@ -52,9 +52,6 @@ def show_modelo_1():
 
   col1 , col2 , col3 = st.columns([2,4,2])
 
-
-  # participants = ['perico']
-  # optionsPositions = ['perro']
 
   with col1:
     st.subheader('Maximizar la duración del  acto sexual')
@@ -180,6 +177,8 @@ def show_modelo_1():
         NPPOO = st.session_state['NPPOO']
         participants = st.session_state['persons']
         optionsPositions = st.session_state['positions']
+
+        # st.write( st.session_state['ECUT'])
 
 
         result = solvepulp.Solve1stProblem(ECUT,PGUT,EIP,PIP,NPPOO,participants,optionsPositions)
