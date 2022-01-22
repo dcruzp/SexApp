@@ -24,6 +24,8 @@ MIN_LENGTH_DESCIPTION = 10
 # Initilize variables
 if 'persons' not in st.session_state:
   st.session_state['persons'] = []
+if 'positions' not in st.session_state:
+  st.session_state['positions'] = []
 
 
 # def loadingconfigfile():
@@ -42,7 +44,7 @@ if 'persons' not in st.session_state:
 
 # configurando las parametros de la pagina 
 st.set_page_config( page_title='Sex App',
-                    layout='centered',
+                    layout='wide',
                     page_icon= 'img\sex_icon.png',
                   )
 
@@ -74,14 +76,17 @@ def get_postures_info():
   return (names, sources ,descriptions,images)
 
 def show_all_postures():
-  names, sources , descriptions ,images =  get_postures_info()
-  for i in range (len(names)):
-    with st.expander(names[i]):
-      st.write(descriptions[i])
-      if sources[i] is not None:
-        st.image(sources[i])
-      elif images[i] is not None:
-        st.image(images[i])
+  col1 , col2 , col3 = st.columns([2,4,2])
+
+  with col2:
+    names, sources , descriptions ,images =  get_postures_info()
+    for i in range (len(names)):
+      with st.expander(names[i]):
+        st.write(descriptions[i])
+        if sources[i] is not None:
+          st.image(sources[i])
+        elif images[i] is not None:
+          st.image(images[i])
 
 
 #choice = st.sidebar.selectbox('Select view' ,['Modelo 1', 'Modelo 2' , 'Modelo 3' , 'Modelo 4' , 'Modelo 5' , 'Mostrar Posturas', 'Adicionar una postura'])
