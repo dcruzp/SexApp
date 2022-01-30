@@ -10,6 +10,9 @@ from viewmodel3 import show_modelo_3
 from viewmodel4 import show_modelo_4
 from viewmodel5 import show_modelo_5
 from streamlit_option_menu import option_menu
+import db.dbmanager as dbmanager
+
+
 
 #ECUT : E consumida por unidad de tiempo [][]
 #PGUT : Placer generado por unidad de Tiempo [][]
@@ -56,7 +59,10 @@ st.title('Sex App')
 # st.sidebar.header("Sex App")
 
 # localizacion de la base de datos
-dblocation = "db\\sexapp.db"
+dblocation = dbmanager.dblocation
+
+
+#dblocation = "db\\sexapp.db"
 
 
 

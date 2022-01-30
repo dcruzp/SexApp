@@ -1,11 +1,17 @@
 import streamlit as st
 import sqlite3
 
+
+
 # Globals Varaibles
 MAX_LENGTH_DESCIPTION = 400
 MIN_LENGTH_DESCIPTION = 10
 
-dblocation = "db\\sexapp.db"
+#dblocation = "db\\sexapp.db"
+import db.dbmanager as dbmanager
+
+dblocation = dbmanager.dblocation
+
 
 
 def addposture():

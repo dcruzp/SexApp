@@ -6,9 +6,9 @@ import pandas as pd
 from scipy.optimize import linprog 
 import solve3
 import hydralit_components as hc
+import db.dbmanager as dbmanager
 
-dblocation = "db\\sexapp.db"
-
+dblocation = dbmanager.dblocation
 
 def get_selected_postures ():
   conn = sqlite3.connect(dblocation)

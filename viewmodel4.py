@@ -4,8 +4,9 @@ from addparticipants import addparticipant
 import pandas as pd
 import solve4
 import hydralit_components as hc
+import db.dbmanager as dbmanager
 
-dblocation = "db\\sexapp.db"
+dblocation = dbmanager.dblocation
 
 
 def get_selected_postures ():

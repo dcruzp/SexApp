@@ -9,7 +9,12 @@ from addposture import addposture
 MAX_LENGTH_DESCIPTION = 400
 MIN_LENGTH_DESCIPTION = 10
 
-dblocation = "db\\sexapp.db"
+#dblocation = "db\\sexapp.db"
+import db.dbmanager as dbmanager
+
+dblocation = dbmanager.dblocation
+
+
 
 if 'persons' not in st.session_state:
   st.session_state['persons'] = []
