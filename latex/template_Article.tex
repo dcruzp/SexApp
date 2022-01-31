@@ -65,13 +65,13 @@ $Max$ $\sum_{i=1}^{m} T[i]$
 \newline
 Luego procedemos a trabajar las siguientes restricciones:
 
-$1-)$ $\sum_{i=1}^{n} PGUT_{pi}t[i] >= NPPOO_{p} - PIP_{p}$
+$1-)$ $\sum_{i=1}^{n} PGUT_{pi}t[i] \geq NPPOO_{p} - PIP_{p}$
 \newline
 \newline
 Esta restricción expresa que el placer alcanzado por cada persona(p) entre 1 hasta m en las sumas de las posturas ejecutadas debe ser mayor o igual a lo necesario para llegar al orgasmo
 \newline
 \newline
-$2-)$ $\sum_{i=1}^{n} ECUT_{pi}*t[i] <= EIP_{pi}$
+$2-)$ $\sum_{i=1}^{n} ECUT_{pi}*t[i] \leq EIP_{pi}$
 \newline
 \newline
 Esta restricción expresa que durante el acto sexual ninguna persona debe superar la energía que puede emplear en el acto sexual por cada persona(p) entre 1 hasta m
@@ -87,19 +87,19 @@ $Max$ $h$
 Luego le añadiremos las siguientes restricciones:
 \newline
 \newline
-$1-)$ $\sum_{i=1}^{n} PGUT_{pi}*t_{i} >= h - PIP_{p}$
+$1-)$ $\sum_{i=1}^{n} PGUT_{pi}*t_{i} \geq h - PIP_{p}$
 \newline
 \newline
 En esta restricción expresa que la suma de los placeres alcanzados por las personas en el acto sexual debe de ser mayor o igual al placer alcanzado por el de menor placer menos la cantidad de placer necesaria para que alcance el orgasmo por cada persona(p) entre 1 hasta m
 \newline
 \newline
-$2-)$ $\sum_{i=1}^{n} PGUT_{pi}t_{i} >= NPPOO_{p} - PIP_{p}$
+$2-)$ $\sum_{i=1}^{n} PGUT_{pi}t_{i} \geq NPPOO_{p} - PIP_{p}$
 \newline
 \newline
 Esta restricción expresa que el placer alcanzado por cada persona(p) entre 1 hasta m en las sumas de las posturas ejecutadas debe ser mayor o igual a lo necesario para llegar al orgasmo
 \newline
 \newline
-$3-)$ $\sum_{i=1}^{n} ECUT_{pi}*t_{i} <= EIP_{pi}$
+$3-)$ $\sum_{i=1}^{n} ECUT_{pi}*t_{i} \leq EIP_{pi}$
 \newline
 \newline
 Esta restricción expresa que durante el acto sexual ninguna persona debe superar la energía que puede emplear en el acto sexual por cada persona(p) entre 1 hasta m
@@ -115,19 +115,19 @@ $Max$ $h$
 Luego añadiremos las siguientes restricciones:
 \newline
 \newline
-$1-)$ $\sum_{i=1}^{n} ECUT_{pi}*t_{i} >= h - EIP_{pi}$
+$1-)$ $\sum_{i=1}^{n} ECUT_{pi}*t_{i} \geq h - EIP_{pi}$
 \newline
 \newline
 Donde expresamos que todas las personas desde 1 hasta m en el acto solo pueden gastar una energía mayor o igual a la diferencia entre la energía del que mayor cansancio acumula menos la energía inicial de la persona antes de comenzar el acto sexual
 \newline
 \newline
-$2-)$ $\sum_{i=1}^{n} PGUT_{pi}t_{i} >= NPPOO_{p} - PIP_{p}$
+$2-)$ $\sum_{i=1}^{n} PGUT_{pi}t_{i} \geq NPPOO_{p} - PIP_{p}$
 \newline
 \newline
 Esta restricción expresa que el placer alcanzado por cada persona(p) entre 1 hasta m en las sumas de las posturas ejecutadas debe ser mayor o igual a lo necesario para llegar al orgasmo
 \newline
 \newline
-$3-)$ $\sum_{i=1}^{n} ECUT_{pi}*t_{i} <= EIP_{pi}$
+$3-)$ $\sum_{i=1}^{n} ECUT_{pi}*t_{i} \leq EIP_{pi}$
 \newline
 \newline
 Esta restricción expresa que durante el acto sexual ninguna persona debe superar la energía que puede emplear en el acto sexual por cada persona(p) entre 1 hasta m
@@ -148,13 +148,13 @@ $1-)$ $\sum_{i=1}^{n} ECUT_{pi}*t_{i} == EIP_{p} - h$
 Donde buscamos un h tal que se igualen los EIP a la cantidad de energía gastada por las personas involucradas en el acto sexual. Siendo EIP variables no definidas. Además sin notan, al despejar el valor de EIP podemos verificar que el EIP de cada persona diferenciado con la energía gastada en el acto sexual por dicha persona, se volveran iguales a dicho h, lo que quiere decir que cada EIP - ECUT seran iguales el resultado para cada persona desde 1 hasta m
 \newline
 \newline
-$2-)$ $\sum_{i = 1}^{n} ECUT_{pi}*t_{i} <= EIP_{p}$
+$2-)$ $\sum_{i = 1}^{n} ECUT_{pi}*t_{i} \leq EIP_{p}$
 \newline
 \newline
 Esta restricción expresa que durante el acto sexual ninguna persona debe superar la energía que puede emplear en el acto sexual
 \newline
 \newline
-$3-)$ $\sum_{i = 1}^{n} PGUT_{pi}*t_{p} >= NPPOO_{p} - PIP_{p}$
+$3-)$ $\sum_{i = 1}^{n} PGUT_{pi}*t_{p} \geq NPPOO_{p} - PIP_{p}$
 \newline
 \newline
 Esta restricción expresa que el placer alcanzado por cada persona en las sumas de las posturas ejecutadas debe ser mayor o igual a lo necesario para llegar al orgasmo para cada persona entre 1 hasta m
@@ -169,13 +169,13 @@ $Max$ $H$
 Con los tiempos como variables del problema y añadimos de restricciones las siguientes:
 \newline
 \newline
-$1-)$ $\sum_{i = 1}^{n} ECUT_{pi}*t_{i} <= EIP_{p}$
+$1-)$ $\sum_{i = 1}^{n} ECUT_{pi}*t_{i} \leq EIP_{p}$
 \newline
 \newline
 Donde buscamos que la energía gastada por las personas en el acto sexual para hacer las posturas sea menor o igual que la energía que tenía a disposición la persona para llevar a cabo toda la actividad por cada persona(p) de 1 hasta m
 \newline
 \newline
-$2-)$ $\sum_{i = 1}^{n} PGUT_{pi}*t_{i} >= NPPOO_{p} - PIP_{p}$
+$2-)$ $\sum_{i = 1}^{n} PGUT_{pi}*t_{i} \geq NPPOO_{p} - PIP_{p}$
 \newline
 \newline
 Esta restricción expresa que el placer alcanzado por cada persona(p) de 1 hasta m en las sumas de las posturas ejecutadas debe ser mayor o igual a lo necesario para llegar al orgasmo
@@ -193,7 +193,7 @@ $4-)$ $hNPPOO > h$
 En esta restricción buscamos maximizar el placer de h pero imponiendo que no pueda superar el placer requerido para llegar al orgasmo
 \newline
 \newline
-$5-)$ $\sum_{i = 1}^{n} PGUT_{pi}*t_{i} >= NPPOO_{p} - PIP_{p}$
+$5-)$ $\sum_{i = 1}^{n} PGUT_{pi}*t_{i} \geq NPPOO_{p} - PIP_{p}$
 \newline
 \newline
 Esta restricción expresa que el placer alcanzado por cada persona en las sumas de las posturas ejecutadas debe ser mayor o igual a lo necesario para llegar al orgasmo
