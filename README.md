@@ -2,7 +2,7 @@
 
 ## Abstract
 
-Si se tiene un conjunto prefijado de posturas sexuales que se quieren usar en un acto sexual en un orden predeteminado, es posible construir un modelo de programación lineal donde las variables indican cuánto tiempo dedicarle a cada postura, de forma que se cumplan algunas restricciones de sentido común y se maximice (o minimice) algún criterio. El criterio que se debe maximizar (o minimizar) depende de cada situación y de cada usuario. Algunos ejemplos pueden ser maximizar el placer, o minimizar el cansancio logrando determinados niveles de placer.
+Si se tiene un conjunto prefijado de posturas sexuales que se quieren usar en un acto sexual en un orden predeterminado, es posible construir un modelo de programación lineal donde las variables indican cuánto tiempo dedicarle a cada postura, de forma que se cumplan algunas restricciones de sentido común y se maximice (o minimice) algún criterio. El criterio que se debe maximizar (o minimizar) depende de cada situación y de cada usuario. Algunos ejemplos pueden ser maximizar el placer, o minimizar el cansancio logrando determinados niveles de placer.
 
 ### Objetivos
 
@@ -39,7 +39,7 @@ Los objetivos de este trabajo son varios:
    $$
    
 
-### Maximizar la duración del acto Sexual 
+### Maximizar la duración del acto sexual 
 
 Este problema se centra en encontrar que tiempo se debe estar en cada posición para que el tiempo del acto sexual sea el mayor posible. Se utiliza $x_i$ que indica el tiempo que se permanecerá en cada postura y se resuelva el problema  que se presenta a continuación , sujeta a las restricciones que se 1,2,3,4.
 $$
@@ -47,14 +47,14 @@ max \sum_{i=1}^{n} x_i
 $$
 
 
-### Como correr la aplicacion 
+### Como correr la aplicación 
 
-Para correr la aplicacion por pirmera vez es necesario instalar primero todas las dependencias, para esto se puede correr el siguiente comando en la lista de comandos 
+Para correr la aplicación por primera vez es necesario instalar primero todas las dependencias, para esto se puede correr el siguiente comando en la lista de comandos 
 ```
 pip install -r requirements.txt
 ``` 
 
-En el fichero ```requeriments.txt``` estan todas las librerias con los paquetes necesarios y la especificacion de cada version de los paquetes que hay que intalar para que la aplicacion funcione correctamente. Los paquetes que hay en el fichero ```requeriments.txt``` se muestran a continuacion: 
+En el fichero ```requeriments.txt``` están todas las librerías con los paquetes necesarios y la especificación de cada version de los paquetes que hay que instalar para que la aplicación funcione correctamente. Los paquetes que hay en el fichero ```requeriments.txt``` se muestran a continuación: 
 
 ```
 beautifulsoup4==4.10.0
@@ -67,18 +67,17 @@ streamlit==1.4.0
 streamlit_option_menu==0.2.10
 ```
 
-## Para correr la aplicacion 
+## Para correr la aplicación 
 
-En la raiz del proyecto hay uh fichero llamado ```sexapp.py``` que es donde esta el main proncipal del proyecto, es decir donde se encuentra la entrada de la aplicacion de **streamlit**. Para correr  la aplicacion hay abrir una terminal justo en donde se encuentra la raiz de la aplicacion, y entonces se corre el siguiente comando: 
+En la raíz del proyecto hay uh fichero llamado ```sexapp.py``` que es donde esta el main principal del proyecto, es decir donde se encuentra la entrada de la aplicación de **streamlit**. Para correr  la aplicación hay abrir una terminal justo en donde se encuentra la raíz de la aplicación, y entonces se corre el siguiente comando: 
 
-```
+```  
 streamlit run sexapp.py
 ```
 
 
-
-
-<!-- 
 ### Authors
-[Daniel de la cruz Prieto](http://github.com/dcruzp/)
-[] -->
+- [Daniel de la cruz Prieto](http://github.com/dcruzp/)
+- [Dayron Fernandez Acosta](https://github.com/I-Dayz-I)
+- [Javier Villar Alonso](https://github.com/Vyler-Lnidas)
+- [Julio Jose Horta](https://github.com/Belzico)
