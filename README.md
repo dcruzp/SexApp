@@ -45,3 +45,40 @@ Este problema se centra en encontrar que tiempo se debe estar en cada posición 
 $$
 max \sum_{i=1}^{n} x_i
 $$
+
+
+### Como correr la aplicacion 
+
+Para correr la aplicacion por pirmera vez es necesario instalar primero todas las dependencias, para esto se puede correr el siguiente comando en la lista de comandos 
+```
+pip install -r requirements.txt
+``` 
+
+En el fichero ```requeriments.txt``` estan todas las librerias con los paquetes necesarios y la especificacion de cada version de los paquetes que hay que intalar para que la aplicacion funcione correctamente. Los paquetes que hay en el fichero ```requeriments.txt``` se muestran a continuacion: 
+
+```
+beautifulsoup4==4.10.0
+hydralit_components==1.0.9
+numpy==1.22.1
+pandas==1.3.5
+PuLP==2.6.0
+scipy==1.7.3
+streamlit==1.4.0
+streamlit_option_menu==0.2.10
+```
+
+## Para correr la aplicacion 
+
+En la raiz del proyecto hay uh fichero llamado ```sexapp.py``` que es donde esta el main proncipal del proyecto, es decir donde se encuentra la entrada de la aplicacion de **streamlit**. Para correr  la aplicacion hay abrir una terminal justo en donde se encuentra la raiz de la aplicacion, y entonces se corre el siguiente comando: 
+
+```
+streamlit run sexapp.py
+```
+
+
+
+
+<!-- 
+### Authors
+[Daniel de la cruz Prieto](http://github.com/dcruzp/)
+[] -->
